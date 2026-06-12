@@ -10,13 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center text-white font-black text-lg">IX</div>
-              <div>
-                <span className="text-white font-bold text-xl">Improx</span>
-                <span className="gradient-text font-bold text-xl">Group</span>
-              </div>
-            </Link>
+            <img src="/logo-black.png" alt="Logo" className="h-8 lg:h-10 mb-4" />
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
               Your trusted partner for consulting, technology, marketing, and business transformation — delivered with precision and purpose.
             </p>
@@ -63,8 +57,7 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li><Link to="/about" className="text-slate-400 hover:text-white text-sm transition-colors">About Us</Link></li>
-              <li><Link to="/contact" className="text-slate-400 hover:text-white text-sm transition-colors">Contact</Link></li>
+               
             </ul>
           </div>
 
@@ -90,7 +83,10 @@ export default function Footer() {
                   {contactInfo.address}
                 </span>
               </li>
+              <li><Link to="/about" className="text-slate-400 hover:text-white text-sm transition-colors">About Us</Link></li>
+              <li><Link to="/contact" className="text-slate-400 hover:text-white text-sm transition-colors">Contact</Link></li>
             </ul>
+            
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 export const departments = [
   {
     id: 'consulting',
+    image: '/Consulting.png',
     name: 'Consulting',
     slug: 'consulting',
     icon: '🧩',
@@ -24,6 +25,7 @@ export const departments = [
   },
   {
     id: 'cloud',
+    image: '/cloud-storage.avif',
     name: 'Cloud',
     slug: 'cloud',
     icon: '☁️',
@@ -47,6 +49,7 @@ export const departments = [
   },
   {
     id: 'marketing',
+    image: '/digital-marketing.jpg',
     name: 'Marketing',
     slug: 'marketing',
     icon: '📣',
@@ -70,6 +73,7 @@ export const departments = [
   },
   {
     id: 'data',
+    image: '/data.jpg',
     name: 'Data',
     slug: 'data',
     icon: '📊',
@@ -93,6 +97,7 @@ export const departments = [
   },
   {
     id: 'business-process',
+    image: '/business-process.jpg',
     name: 'Business Process',
     slug: 'business-process',
     icon: '⚙️',
@@ -116,6 +121,7 @@ export const departments = [
   },
   {
     id: 'media-publication',
+    image: '/media-publication.webp',
     name: 'Media Publication',
     slug: 'media-publication',
     icon: '📰',
@@ -139,6 +145,7 @@ export const departments = [
   },
   {
     id: 'market-research',
+    image: '/market-reserch.jpg',
     name: 'Market Research',
     slug: 'market-research',
     icon: '🔍',
@@ -162,6 +169,7 @@ export const departments = [
   },
   {
     id: 'virtual-assistant',
+    image: '/virtual-assistant.webp',
     name: 'Virtual Assistant',
     slug: 'virtual-assistant',
     icon: '🤖',
@@ -185,6 +193,7 @@ export const departments = [
   },
   {
     id: 'information-technology',
+    image: '/Information-tech.jpg',
     name: 'Information Technology',
     slug: 'information-technology',
     icon: '💻',
@@ -208,6 +217,7 @@ export const departments = [
   },
   {
     id: 'social-media',
+    image: '/social-media.jpg',
     name: 'Social Media',
     slug: 'social-media',
     icon: '📱',

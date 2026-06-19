@@ -6,6 +6,7 @@ import { departments } from "../data/departments";
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [deptOpen, setDeptOpen] = useState(false);
+  const [mobileDeptOpen, setMobileDeptOpen] = useState(false); // Collapsible status for mobile accordion
   const [scrolled, setScrolled] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -13,6 +14,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setMobileOpen(false);
+    setMobileDeptOpen(false);
   }, [location]);
 
   useEffect(() => {
@@ -24,31 +26,26 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-   useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target)
-    ) {
-      setDeptOpen(false);
-    }
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setDeptOpen(false);
+      }
+    };
 
-  document.addEventListener(
-    "mousedown",
-    handleClickOutside
-  );
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-  return () => {
-    document.removeEventListener(
-      "mousedown",
-      handleClickOutside
-    );
-  };
-}, []);
-
+  // Services/Departments injected natively into index 1 (the 2nd slot)
   const navLinks = [
     { name: "Home", path: "/" },
+    { name: "Services", type: "dropdown" },
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
@@ -74,123 +71,80 @@ export default function Navbar() {
               alt="Logo"
               className="h-10 transition-all duration-500 group-hover:scale-110"
             />
-
             <div>
-               
               <p className="text-[10px] text-slate-500 tracking-widest">
                 BUSINESS GROUP
               </p>
             </div>
           </Link>
 
-          {/* Desktop */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((item) => {
+              if (item.type === "dropdown") {
+                return (
+                  <div ref={dropdownRef} key={item.name} className="relative">
+                    <button
+                      onClick={() => setDeptOpen(!deptOpen)}
+                      className="flex items-center gap-2 px-4 py-3 rounded-xl font-semibold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 cursor-pointer"
+                    >
+                      {item.name}
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform duration-300 ${
+                          deptOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
 
-            {navLinks.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`group relative font-semibold transition-all duration-300 hover:text-blue-600 ${
-                  location.pathname === item.path
-                    ? "text-blue-600"
-                    : "text-slate-700"
-                }`}
-              >
-                {item.name}
+                    {deptOpen && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[850px] glass bg-white rounded-3xl p-8 shadow-2xl animate-fade-up z-50">
+                        <div className="mb-5">
+                          <h3 className="text-lg font-bold text-slate-800">Our Departments</h3>
+                          <p className="text-sm text-slate-500">Explore all business divisions</p>
+                        </div>
 
-                <span
-                  className={`absolute -bottom-2 left-0 h-[3px] rounded-full bg-gradient-to-r from-blue-600 to-sky-400 transition-all duration-300 ${
-                    location.pathname === item.path
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
+                        <div className="grid grid-cols-3 gap-4">
+                          {departments.map((dept) => (
+                            <Link
+                              key={dept.id}
+                              to={`/departments/${dept.slug}`}
+                              onClick={() => setDeptOpen(false)}
+                              className="group flex items-center gap-4 p-4 rounded-2xl hover:bg-blue-50 transition-all duration-300"
+                            >
+                              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-xl shadow-lg`}>
+                                {dept.icon}
+                              </div>
+                              <div>
+                                <h4 className="font-semibold text-slate-800 group-hover:text-blue-600">{dept.name}</h4>
+                                <p className="text-xs text-slate-500">{dept.tagline}</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`group relative font-semibold transition-all duration-300 hover:text-blue-600 ${
+                    location.pathname === item.path ? "text-blue-600" : "text-slate-700"
                   }`}
-                />
-              </Link>
-            ))}
-
-            {/* Departments */}
-            {/* Departments */}
-<div
-  ref={dropdownRef}
-  className="relative"
->
-  <button
-    onClick={() => setDeptOpen(!deptOpen)}
-    className="
-      flex items-center gap-2
-      px-4 py-3
-      rounded-xl
-      font-semibold
-      text-slate-700
-      hover:text-blue-600
-      hover:bg-blue-50
-      transition-all duration-300
-      cursor-pointer
-    "
-  >
-    Departments
-
-    <ChevronDown
-      size={18}
-      className={`transition-transform duration-300 ${
-        deptOpen ? "rotate-180" : ""
-      }`}
-    />
-  </button>
-
-  {deptOpen && (
-    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[850px] glass rounded-3xl p-8 shadow-2xl animate-fade-up z-50">
-
-      <div className="mb-5">
-        <h3 className="text-lg font-bold text-slate-800">
-          Our Departments
-        </h3>
-
-        <p className="text-sm text-slate-500">
-          Explore all business divisions
-        </p>
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        {departments.map((dept) => (
-          <Link
-            key={dept.id}
-            to={`/departments/${dept.slug}`}
-            onClick={() => setDeptOpen(false)}
-            className="
-              group
-              flex
-              items-center
-              gap-4
-              p-4
-              rounded-2xl
-              hover:bg-blue-50
-              transition-all
-              duration-300
-            "
-          >
-            <div
-              className={`w-12 h-12 rounded-xl bg-gradient-to-br ${dept.color}
-              flex items-center justify-center text-xl shadow-lg`}
-            >
-              {dept.icon}
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-slate-800 group-hover:text-blue-600">
-                {dept.name}
-              </h4>
-
-              <p className="text-xs text-slate-500">
-                {dept.tagline}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  )}
-</div>
+                >
+                  {item.name}
+                  <span
+                    className={`absolute -bottom-2 left-0 h-[3px] rounded-full bg-gradient-to-r from-blue-600 to-sky-400 transition-all duration-300 ${
+                      location.pathname === item.path ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
 
             {/* Phone */}
             <a
@@ -201,15 +155,12 @@ export default function Navbar() {
             </a>
 
             {/* CTA */}
-            <Link
-              to="/contact"
-              className="btn-primary hover-pulse-glow"
-            >
+            <Link to="/contact" className="btn-primary hover-pulse-glow">
               Get Started
             </Link>
           </div>
 
-          {/* Mobile Button */}
+          {/* Mobile Toggle Button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 text-slate-800"
@@ -219,27 +170,72 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Accordion Menu */}
       <div
         className={`lg:hidden overflow-hidden transition-all duration-500 ${
-          mobileOpen ? "max-h-screen" : "max-h-0"
+          mobileOpen ? "max-h-[100vh] overflow-y-auto" : "max-h-0"
         }`}
       >
         <div className="bg-white border-t border-slate-200 px-6 py-6">
-
           <div className="space-y-4">
+            {navLinks.map((item) => {
+              if (item.type === "dropdown") {
+                return (
+                  <div key={item.name} className="space-y-2">
+                    <button
+                      onClick={() => setMobileDeptOpen(!mobileDeptOpen)}
+                      className="flex items-center justify-between w-full text-slate-700 font-medium hover:text-blue-600 text-left py-1"
+                    >
+                      <span className="font-semibold">{item.name}</span>
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform duration-300 ${
+                          mobileDeptOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
 
-            {navLinks.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="block text-slate-700 font-medium hover:text-blue-600"
+                    {/* Nested Mobile Department Links Container */}
+                    <div
+                      className={`overflow-hidden transition-all duration-300 pl-4 space-y-2 border-l border-slate-100 ${
+                        mobileDeptOpen ? "max-h-[400px] py-1" : "max-h-0"
+                      }`}
+                    >
+                      {departments.map((dept) => (
+                        <Link
+                          key={dept.id}
+                          to={`/departments/${dept.slug}`}
+                          className="flex items-center gap-3 py-2 px-2 rounded-xl hover:bg-slate-50 transition-colors"
+                        >
+                          <span className="text-lg">{dept.icon}</span>
+                          <span className="text-sm font-medium text-slate-600">{dept.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`block font-medium hover:text-blue-600 py-1 ${
+                    location.pathname === item.path ? "text-blue-600 font-semibold" : "text-slate-700"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+
+            <div className="pt-4 border-t border-slate-100 space-y-4">
+              <a
+                href="tel:+919370992910"
+                className="block font-bold text-center text-blue-600 hover:text-blue-700 py-2"
               >
-                {item.name}
-              </Link>
-            ))}
-
-            <div className="pt-4">
+                +91 9370992910
+              </a>
               <Link
                 to="/contact"
                 className="btn-primary block text-center"
@@ -247,7 +243,6 @@ export default function Navbar() {
                 Get Started
               </Link>
             </div>
-
           </div>
         </div>
       </div>

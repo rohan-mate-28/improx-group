@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { departments, socialLinks, contactInfo } from '../data/departments';
 import { ArrowRightIcon, CheckCircleIcon, SocialIcon } from '../components/Icons';
 
+// ─── ANIMATED COUNTER SUB-COMPONENT ───
 function AnimatedCounter({ target, duration = 2000 }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
@@ -34,12 +35,16 @@ function AnimatedCounter({ target, duration = 2000 }) {
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
+// ─── SCROLL REVEAL CUSTOM HOOK ───
 function useScrollReveal() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setVisible(true); observer.disconnect(); }
+      if (entry.isIntersecting) { 
+        setVisible(true); 
+        observer.disconnect(); 
+      }
     }, { threshold: 0.1 });
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -47,6 +52,7 @@ function useScrollReveal() {
   return [ref, visible];
 }
 
+// ─── STATIC DATA MODELS ───
 const stats = [
   { value: '500+', label: 'Projects Delivered' },
   { value: '150+', label: 'Enterprise Clients' },
@@ -64,18 +70,78 @@ const whyUs = [
 ];
 
 const industries = [
-  { name: 'Healthcare', info: 'Next-gen telemedicine, compliance frameworks, and patient data security systems.' },
-  { name: 'Finance', info: 'Algorithmic strategy, risk management structures, and automated workflows.' },
-  { name: 'Banking', info: 'Secure infrastructure scaling, open banking APIs, and high-frequency ledgers.' },
-  { name: 'Education', info: 'LMS integrations, remote infrastructure, and digital skill curriculum development.' },
-  { name: 'Retail', info: 'Omnichannel supply networks, POS systems integration, and spatial optimization.' },
-  { name: 'E-Commerce', info: 'High-conversion headless setups, dynamic checkouts, and international processing.' },
-  { name: 'Manufacturing', info: 'IoT cloud telemetry, automated assembly planning, and maintenance analytics.' },
-  { name: 'Technology', info: 'SaaS design architecture, cloud computing migrations, and automated operations.' },
-  { name: 'Real Estate', info: 'PropTech platforms, digital documentation pipelines, and interactive visual mockups.' },
-  { name: 'Logistics', info: 'Route optimization matrices, dynamic asset distribution, and cold-chain tracking.' },
-  { name: 'Hospitality', info: 'Booking engine scaling, property asset systems, and targeted marketing campaigns.' },
-  { name: 'Government', info: 'Civic digital portals, citizen interaction touchpoints, and secure data storage.' }
+  { 
+    name: 'Healthcare', 
+    tagline: 'Patient-first operational transformation & digital ecosystems.',
+    info: 'Navigating the intersection of rigorous clinical care and complex regulatory landscapes requires highly adaptive technology architecture. We engineer end-to-end medical environments, modern telemedicine networks, unified EHR data fabrics, and secure cloud environments that break down communication silos while preserving clinical accuracy.',
+    focus: ['HIPAA & HITECH Architecture', 'Remote Patient Telemetry Systems', 'FHIR Interoperability Layers', 'AI-Driven Clinical Diagnostics']
+  },
+  { 
+    name: 'Finance', 
+    tagline: 'Algorithmic efficiency and risk orchestration platforms.',
+    info: 'Modern asset ecosystems demand high-speed processing systems, secure infrastructure, and predictive capabilities to maintain structural alpha. We help investment managers, insurance agencies, and trading institutions design custom high-frequency data pipelines and automated risk analysis tools.',
+    focus: ['Quantitative Trading Frameworks', 'Predictive Risk Simulation Models', 'Automated Reconciliation Engines', 'Portfolio Lifecycle Analytics']
+  },
+  { 
+    name: 'Banking', 
+    tagline: 'Core infrastructure scaling and open banking ecosystems.',
+    info: 'As global banking shifts toward decentralized access and open banking structures, traditional financial systems face unprecedented technical demands. We build secure API architectures, lightning-fast transaction ledgers, and automated fraud-detection systems.',
+    focus: ['PSD2 & Open Banking API Fabrics', 'High-Throughput Ledger Systems', 'Real-Time Fraud Mitigations', 'Legacy Core Mainframe Upgrades']
+  },
+  { 
+    name: 'Education', 
+    tagline: 'Modernizing student journeys through unified virtual platforms.',
+    info: 'Academic settings require modern digital infrastructure that connects student engagement with backend administrative tools. We design and integrate custom Learning Management Systems (LMS), secure campus networks, and cloud infrastructure.',
+    focus: ['Enterprise LMS Customizations', 'Predictive Retention Dashboarding', 'Immersive Classroom Pipelines', 'Automated Enrollment Workflows']
+  },
+  { 
+    name: 'Retail', 
+    tagline: 'Omnichannel supply optimization and local point-of-sale systems.',
+    info: 'Physical retail operations depend entirely on clear supply chains and fast inventory tracking across physical and digital storefronts. We build smart inventory platforms, connect localized POS terminals, and map store layouts.',
+    focus: ['Real-Time Multi-Store Syncing', 'Smart Inventory Distributions', 'Integrated Point-of-Sale Bridges', 'Localized Store Analytics']
+  },
+  { 
+    name: 'E-Commerce', 
+    tagline: 'High-conversion headless architectures and international setups.',
+    info: 'Digital commerce requires fast page loads, modular flexibility, and frictionless payment checkouts to capture dynamic online shoppers. We design fast headless commerce layouts, localized checkout experiences, and intelligent recommendation systems.',
+    focus: ['Headless Engine Orchestration', 'Multi-Currency Global Checkouts', 'AI Search Optimization Layer', 'Dynamic Cart Behavior Workflows']
+  },
+  { 
+    name: 'Manufacturing', 
+    tagline: 'IoT telemetry architectures and industrial pipeline analytics.',
+    info: 'Industrial production spaces rely on machinery uptime and highly optimized material logistics. We deploy secure IoT monitoring networks, predictive machine maintenance platforms, and automated assembly workflows.',
+    focus: ['Industrial IoT Sensor Architectures', 'Predictive Maintenance Trackers', 'Supply Chain Visibility Portals', 'Automated Quality Control Audits']
+  },
+  { 
+    name: 'Technology', 
+    tagline: 'SaaS design environments and automated cloud workflows.',
+    info: 'Tech companies must build software fast and scale infrastructure without driving up operational overhead. We design scalable multi-tenant SaaS layouts, manage clean migrations to public clouds, and set up automated DevOps integration pipelines.',
+    focus: ['Multi-Tenant SaaS Blueprints', 'Declarative Infrastructure (IaC)', 'High-Availability Cloud Design', 'Continuous Integration Automation']
+  },
+  { 
+    name: 'Real Estate', 
+    tagline: 'PropTech platforms and digitized transaction pipelines.',
+    info: 'Property developers and asset groups depend on streamlined document workflows and engaging virtual visual displays to move properties. We build modern PropTech software systems, automated document signoff pipelines, and detailed visual leasing tracking tools.',
+    focus: ['PropTech Application Design', 'Automated Leasing Signoffs', 'Spatial Layout Visualizations', 'Asset Portfolio Dashboards']
+  },
+  { 
+    name: 'Logistics', 
+    tagline: 'Dynamic routing models and cold-chain asset tracking.',
+    info: 'Global shipping networks require pinpoint route planning and immediate asset tracking to protect operating margins. We build custom fleet routing algorithms, live GPS asset tracking maps, and specialized temperature tracking environments.',
+    focus: ['Dynamic Fleet Routing Math', 'Cold-Chain Environmental Trackers', 'Warehouse Space Allocations', 'Last-Mile Delivery Pipelines']
+  },
+  { 
+    name: 'Hospitality', 
+    tagline: 'High-scale booking systems and centralized asset tracking.',
+    info: 'Hotel and resort operations need fast, modern booking platforms and immediate property metrics to maximize occupancy. We build high-scale booking software, connect property asset systems, and manage personalized guest messaging frameworks.',
+    focus: ['Booking Software Integrations', 'Centralized Property Databases', 'Dynamic Rate Adjustment Logic', 'Guest Engagement Automations']
+  },
+  { 
+    name: 'Government', 
+    tagline: 'Secure public platforms and citizen touchpoint services.',
+    info: 'Public sector programs require secure systems, accessible layouts, and reliable infrastructure capable of managing citizen data safely. We build simple public portals, digital documentation processing streams, and secure storage networks.',
+    focus: ['FedRAMP Compliant Architectures', 'Accessible Public Portals (WCAG)', 'Secure Records Encryption', 'Digital Application Streams']
+  }
 ];
 
 const mockBlogs = [
@@ -105,6 +171,7 @@ const mockBlogs = [
   }
 ];
 
+// ─── ROOT HOMEPAGE COMPONENT ───
 export default function HomePage() {
   const [heroRef, heroVisible] = useScrollReveal();
   const [statsRef, statsVisible] = useScrollReveal();
@@ -112,16 +179,18 @@ export default function HomePage() {
   const [whyRef, whyVisible] = useScrollReveal();
   const [blogRef, blogVisible] = useScrollReveal();
 
+  // Explicit active tab hooks moved out of counter block down to home logic container
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndustry = industries[activeIndex];
+
   return (
     <div className="overflow-hidden bg-white">
       {/* ─── HERO ─── */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 bg-gradient-to-b from-blue-50 via-white to-white">
-        {/* Background glows */}
         <div className="hero-glow w-96 h-96 bg-primary-400 top-20 left-10" />
         <div className="hero-glow w-80 h-80 bg-accent-400 top-40 right-10" />
         <div className="hero-glow w-64 h-64 bg-primary-300 bottom-20 left-1/3" />
 
-        {/* Animated particles */}
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
@@ -137,8 +206,8 @@ export default function HomePage() {
 
         <div className="container-max px-4 sm:px-6 lg:px-8 text-center relative z-10" ref={heroRef}>
           <div className={`transition-all duration-1000 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-8 text-sm text-primary-700 font-medium animate-fade-up">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-8 text-sm text-primary-700 font-medium animate-pulse">
+              <span className="w-2 h-2 rounded-full bg-green-500" />
               Trusted by 150+ companies worldwide
             </div>
 
@@ -160,7 +229,6 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Social proof */}
             <div className="mt-12 flex items-center justify-center gap-6 flex-wrap">
               {socialLinks.map((social) => (
                 <a
@@ -178,10 +246,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 border-2 border-primary-300 rounded-full flex items-start justify-center pt-2">
-            <div className="w-1 h-3 bg-primary-500 rounded-full animate-pulse" />
+            <div className="w-1 h-3 bg-primary-500 rounded-full" />
           </div>
         </div>
       </section>
@@ -213,24 +280,14 @@ export default function HomePage() {
             <p className="text-primary-600 font-semibold uppercase tracking-widest text-sm mb-3">
               About Improx Group
             </p>
-
             <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-6">
               A Unified Ecosystem Of Business Excellence
             </h2>
-
             <p className="text-lg text-slate-600 leading-relaxed mb-6">
-              Improx Group is a diversified business solutions organization
-              bringing together consulting, cloud solutions, marketing,
-              data analytics, business process services, media publication,
-              market research, virtual assistant services, information
-              technology and social media management under one powerful
-              ecosystem.
+              Improx Group is a diversified business solutions organization bringing together consulting, cloud solutions, marketing, data analytics, business process services, media publication, market research, virtual assistant services, information technology and social media management under one powerful ecosystem.
             </p>
-
             <p className="text-lg text-slate-600 leading-relaxed">
-              Our mission is to help organizations innovate, optimize,
-              transform and grow through integrated expertise,
-              advanced technology and strategic guidance.
+              Our mission is to help organizations innovate, optimize, transform and grow through integrated expertise, advanced technology and strategic guidance.
             </p>
           </div>
         </div>
@@ -257,22 +314,20 @@ export default function HomePage() {
                 className={`glass rounded-2xl overflow-hidden card-hover group cursor-pointer transition-all duration-700 ${deptVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
-                {/* Image */}
                 <div className="relative h-40 overflow-hidden">
                   <img
                     src={dept.image}
                     alt={dept.name}
-                    className="department-image"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     loading="lazy"
                     onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0" />
-                  <div className={`absolute bottom-3 left-3 w-11 h-11 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`absolute bottom-3 left-3 w-11 h-11 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-xl shadow-lg group-hover:scale-110 transition-transform duration-300 text-white`}>
                     {dept.icon}
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="p-6">
                   <h3 className="text-slate-900 font-bold text-lg mb-2 group-hover:text-primary-600 transition-colors">{dept.name}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">{dept.tagline}</p>
@@ -286,38 +341,69 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── INDUSTRIES WE SERVE (HOVER OVERLAYS ADDED) ─── */}
-      <section className="section-pad bg-slate-50">
-        <div className="container-max">
-          <div className="text-center mb-14">
-            <p className="text-primary-600 font-semibold uppercase tracking-widest text-sm mb-3">Market Expertise</p>
-            <h2 className="text-4xl lg:text-5xl font-black text-slate-900">
-              Industries We Serve
-            </h2>
+      {/* ─── INDUSTRIES WE SERVE ─── */}
+      <section className="py-20 lg:py-28 bg-slate-900 text-slate-100 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-slate-800">
+            <div className="max-w-2xl">
+              <p className="text-blue-400 font-semibold uppercase tracking-widest text-xs mb-3">Market Architecture</p>
+              <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight">Industries We Serve</h2>
+            </div>
+            <p className="mt-4 md:mt-0 text-slate-400 max-w-sm text-sm sm:text-base leading-relaxed">
+              Deploying domain expertise and highly scalable technical frameworks across vertical markets.
+            </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {industries.map((item, idx) => (
-              <div 
-                key={idx} 
-                className="group relative h-36 overflow-hidden glass rounded-xl flex items-center justify-center p-6 text-center font-bold text-slate-800 transition-all duration-300 border border-slate-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-1"
-              >
-                {/* Regular Display Title */}
-                <span className="text-lg tracking-wide group-hover:opacity-0 transition-opacity duration-200">
-                  {item.name}
-                </span>
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-4 grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-col gap-2 max-h-[550px] overflow-y-auto pr-2 custom-scrollbar">
+              {industries.map((item, idx) => {
+                const isSelected = activeIndex === idx;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveIndex(idx)}
+                    onMouseEnter={() => setActiveIndex(idx)}
+                    className={`flex items-center justify-between px-5 py-4 rounded-lg text-left transition-all duration-200 border w-full group ${
+                      isSelected
+                        ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-600/10 translate-x-1'
+                        : 'bg-slate-800/40 border-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800 hover:border-slate-700'
+                    }`}
+                  >
+                    <span className="text-sm font-bold tracking-wide truncate">{item.name}</span>
+                    <span className={`text-xs font-mono transition-opacity duration-200 ${isSelected ? 'opacity-60 text-white' : 'opacity-0 group-hover:opacity-40 text-slate-400'}`}>
+                      // {(idx + 1).toString().padStart(2, '0')}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
 
-                {/* Hover Reveal Overlays Info */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-700 to-blue-800 p-4 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center text-white transition-opacity duration-300 text-left">
-                  <h4 className="text-sm font-black mb-1 border-b border-white/20 pb-0.5 w-full text-center tracking-wider uppercase">
-                    {item.name}
-                  </h4>
-                  <p className="text-xs font-normal text-blue-50/90 text-center leading-relaxed">
-                    {item.info}
-                  </p>
+            <div className="lg:col-span-8 bg-gradient-to-br from-slate-800/60 to-slate-900/40 border border-slate-800 rounded-xl p-8 lg:p-12 min-h-[520px] flex flex-col justify-between relative shadow-xl backdrop-blur-sm">
+              <div className="relative z-10">
+                <div className="mb-8">
+                  <span className="text-xs font-mono text-blue-500/80 uppercase tracking-widest block mb-1">
+                    Sector Profile No. {((activeIndex + 1).toString().padStart(2, '0'))}
+                  </span>
+                  <h3 className="text-3xl lg:text-4xl font-black text-white tracking-tight">{activeIndustry?.name}</h3>
+                  <p className="text-blue-400 font-medium text-sm sm:text-base mt-1.5">{activeIndustry?.tagline}</p>
+                </div>
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-10 font-normal text-justify">
+                  {activeIndustry?.info}
+                </p>
+              </div>
+
+              <div className="relative z-10 pt-8 border-t border-slate-800/80">
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Core Structural Focus Areas</h4>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {activeIndustry?.focus.map((feature, fIdx) => (
+                    <div key={fIdx} className="flex items-center gap-3 text-xs sm:text-sm text-slate-300 bg-slate-900/40 px-4 py-3 rounded-lg border border-slate-800/60">
+                      <span className="w-1 h-1 rounded-full bg-blue-500 shrink-0" />
+                      <span className="font-semibold tracking-wide text-slate-200">{feature}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -326,9 +412,7 @@ export default function HomePage() {
       <section className="section-pad">
         <div className="container-max">
           <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-5xl font-black mb-8">
-              Future Ready Solutions
-            </h2>
+            <h2 className="text-5xl font-black mb-8">Future Ready Solutions</h2>
             <p className="text-xl text-slate-600">
               Helping organizations embrace innovation, automation, artificial intelligence, cloud computing and data-driven decision making.
             </p>
@@ -350,87 +434,115 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-         
-      {/* ─── WHY IMPROX (ONLINE DECORATIVE IMAGES ADDED) ─── */}
-   <section className="section-pad bg-gradient-to-b from-white to-slate-50" ref={whyRef}>
-  <div className="container-max">
-    <div className="grid lg:grid-cols-2 gap-16 items-center">
-      <div className={`transition-all duration-700 ${whyVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
-        <p className="text-primary-600 font-semibold uppercase tracking-widest text-sm mb-3">Why Improx</p>
-        <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-6 leading-tight">
-          The partner that stays<br /><span className="gradient-text">until the job is done</span>
-        </h2>
-        <p className="text-slate-500 text-lg leading-relaxed mb-8">
-          We don't just deliver projects — we build long-term partnerships. Every engagement is backed by senior expertise, transparent communication, and measurable results.
-        </p>
-        <ul className="space-y-3">
-          {whyUs.map((item, i) => (
-            <li
-              key={i}
-              className={`flex items-center gap-3 text-slate-700 transition-all duration-500 ${whyVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              <CheckCircleIcon size={18} className="text-primary-500 flex-shrink-0" />
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div className="mt-8">
-          <Link to="/about" className="btn-primary inline-flex items-center gap-2">
-            About Us <ArrowRightIcon />
+
+      {/* ─── WHY IMPROX ─── */}
+     {/* ─── WHY IMPROX ─── */}
+<section className="py-24 lg:py-32 bg-gradient-to-b from-white to-slate-50 overflow-hidden" ref={whyRef}>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    {/* Upper Section Header */}
+    <div className="max-w-3xl mb-16 lg:mb-24">
+      <p className="text-primary-600 font-bold uppercase tracking-widest text-sm mb-3">Why Improx</p>
+      <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight">
+        The partner that stays <br />
+        <span className="gradient-text">until the job is done.</span>
+      </h2>
+      <p className="text-slate-500 text-lg sm:text-xl leading-relaxed mt-6">
+        We don't just deliver isolated source files — we scale cohesive operational ecosystems. Every engagement is backed by direct communication channels, senior software architecture standards, and clear metrics.
+      </p>
+    </div>
+
+    {/* Main Large Content Splitting Panels */}
+    <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
+      
+      {/* Left Column: Big Core Value Checklist */}
+      <div className={`lg:col-span-5 flex flex-col justify-between transition-all duration-700 ${whyVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
+        <div className="space-y-6">
+          <h3 className="text-xl font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-3">
+            Core Operating Framework
+          </h3>
+          <ul className="space-y-4">
+            {whyUs.map((item, i) => (
+              <li
+                key={i}
+                className={`flex items-start gap-4 text-slate-700 text-base sm:text-lg transition-all duration-500 ${whyVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <span className="mt-1 flex-shrink-0 p-1 bg-primary-50 rounded-lg text-primary-600">
+                  <CheckCircleIcon size={20} />
+                </span>
+                <span className="font-medium tracking-wide">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-12 lg:mt-0 pt-8 border-t border-slate-200">
+          <Link to="/about" className="btn-primary inline-flex items-center justify-center gap-3 w-full sm:w-auto text-base px-8 py-4 shadow-lg shadow-primary-600/10">
+            Learn More About Our Philosophy <ArrowRightIcon size={16} />
           </Link>
         </div>
       </div>
 
-      {/* Visual Grid with Direct Hardcoded High-Quality Online Images */}
-      <div className="grid grid-cols-2 gap-4 relative group/grid">
-        {/* Decorative background shape */}
-        <div className="absolute -inset-2 bg-gradient-to-tr from-primary-100 to-transparent rounded-3xl -z-10 blur-xl opacity-60" />
+      {/* Right Column: Massive Full-Cover Uncropped Showcase Panels */}
+      <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 relative min-h-[500px]">
+        <div className="absolute -inset-4 bg-gradient-to-tr from-primary-100/40 via-blue-50/20 to-transparent rounded-3xl -z-10 blur-2xl opacity-70" />
         
         {departments.slice(0, 4).map((dept, i) => {
-          // Dynamic production image allocation based on index sequence
           const onlineImages = [
-            'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=400&auto=format&fit=crop', // Consulting / Strategy
-            'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=400&auto=format&fit=crop', // Tech / Operations
-            'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400&auto=format&fit=crop', // Marketing / Data
-            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop'  // Team Collaboration
+            'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop'
           ];
 
           return (
             <div
               key={dept.id}
-              className={`glass rounded-2xl overflow-hidden group/card bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 ${whyVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-              style={{ transitionDelay: `${i * 100}ms` }}
+              className={`glass rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between border border-slate-100 ${whyVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              style={{ transitionDelay: `${i * 120}ms` }}
             >
-              <div className="relative h-28 overflow-hidden bg-slate-100">
+              {/* Image Frame: set to object-contain or auto dimensions so it scales fully in width/height without weird cuts */}
+              <div className="relative w-full h-48 bg-slate-50 flex items-center justify-center overflow-hidden border-b border-slate-100">
                 <img
                   src={onlineImages[i]}
                   alt={dept.name}
-                  className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
-                <div className={`absolute -bottom-3 left-3 w-9 h-9 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-white text-sm shadow-md border border-white group-hover/card:scale-105 transition-transform duration-300`}>
+                <div className={`absolute top-4 left-4 w-10 h-10 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-white shadow-md`}>
                   {dept.icon}
                 </div>
               </div>
-              <div className="p-4 pt-5">
-                <p className="text-slate-900 font-bold text-sm tracking-tight truncate group-hover/card:text-primary-600 transition-colors">
-                  {dept.name}
-                </p>
-                <p className="text-primary-600 font-medium text-xs mt-1">
-                  {dept.stats?.[0]?.value || 'Top Tier'} {dept.stats?.[0]?.label || 'Solutions'}
-                </p>
+              
+              {/* Content Panel */}
+              <div className="p-6 bg-white flex-grow flex flex-col justify-between">
+                <div>
+                  <h4 className="text-slate-900 font-black text-base tracking-tight mb-1">
+                    {dept.name}
+                  </h4>
+                  <p className="text-slate-500 text-xs sm:text-sm font-medium line-clamp-2 leading-relaxed">
+                    {dept.tagline || 'Engineered multi-channel workflows optimized for high-growth modern business deployments.'}
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-50 flex items-center justify-between">
+                  <span className="text-primary-600 font-bold text-xs bg-primary-50 px-2.5 py-1 rounded-md tracking-wide">
+                    {dept.stats?.[0]?.value || 'Enterprise Tier'}
+                  </span>
+                  <span className="text-slate-400 text-xs font-medium">
+                    {dept.stats?.[0]?.label || 'Solutions'}
+                  </span>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
+
     </div>
   </div>
 </section>
-
-      {/* ─── BLOGS & ARTICLES SECTION (NEWLY ADDED) ─── */}
+      {/* ─── BLOGS & ARTICLES SECTION ─── */}
       <section className="section-pad bg-white" ref={blogRef}>
         <div className="container-max">
           <div className={`flex flex-col md:flex-row justify-between items-start md:items-end mb-12 transition-all duration-700 ${blogVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
@@ -440,71 +552,30 @@ export default function HomePage() {
                 Blogs & Articles
               </h2>
             </div>
-            <Link to="/blogs" className="text-primary-600 font-bold hover:text-primary-700 inline-flex items-center gap-1 mt-4 md:mt-0 group transition-colors">
-              View All Insights <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-            </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {mockBlogs.map((blog, idx) => (
-              <article 
-                key={blog.id}
-                className={`bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-100 flex flex-col transition-all duration-700 ${blogVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-                style={{ transitionDelay: `${idx * 150}ms` }}
-              >
-                <div className="relative h-48 overflow-hidden bg-slate-100">
+          <div className="grid gap-8 md:grid-cols-3">
+            {mockBlogs.map((blog) => (
+              <div key={blog.id} className="group cursor-pointer">
+                <div className="relative overflow-hidden rounded-2xl aspect-[16/10] bg-slate-100 mb-4">
                   <img 
                     src={blog.image} 
                     alt={blog.title} 
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <span className="absolute top-4 left-4 bg-white/95 backdrop-blur text-primary-700 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                  <span className="absolute top-3 left-3 bg-white/95 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                     {blog.tag}
                   </span>
                 </div>
-                
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <p className="text-xs text-slate-400 mb-2 font-medium">{blog.date}</p>
-                    <h3 className="text-slate-900 font-bold text-xl mb-3 leading-snug hover:text-primary-600 transition-colors">
-                      <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-                    </h3>
-                    <p className="text-slate-500 text-sm line-clamp-3 mb-4 leading-relaxed">
-                      {blog.excerpt}
-                    </p>
-                  </div>
-
-                  <Link to={`/blogs/${blog.id}`} className="text-primary-600 font-bold text-sm inline-flex items-center gap-1 hover:text-primary-700 group mt-2 w-max">
-                    Read Post <ArrowRightIcon size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                  </Link>
-                </div>
-              </article>
+                <p className="text-slate-400 text-xs font-medium mb-1">{blog.date}</p>
+                <h3 className="text-slate-900 font-bold text-xl mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">
+                  {blog.title}
+                </h3>
+                <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">
+                  {blog.excerpt}
+                </p>
+              </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── CTA BANNER ─── */}
-      <section className="section-pad">
-        <div className="container-max">
-          <div className="relative rounded-3xl overflow-hidden gradient-bg p-10 sm:p-16 text-center">
-            <div className="hero-glow w-64 h-64 bg-white top-0 right-0 opacity-20" />
-            <div className="hero-glow w-48 h-48 bg-white bottom-0 left-0 opacity-10" />
-            <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 relative z-10">
-              Ready to transform your business?
-            </h2>
-            <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto relative z-10">
-              Talk to our experts today. No commitment, no fluff — just a clear plan for where you want to go.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <Link to="/contact" className="bg-white text-primary-700 font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 shadow-lg">
-                Get a Free Consultation <ArrowRightIcon />
-              </Link>
-              <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} className="border-2 border-white/60 text-white font-bold px-8 py-4 rounded-xl hover:bg-white/10 transition-all hover:-translate-y-1 flex items-center justify-center gap-2">
-                Call {contactInfo.phone}
-              </a>
-            </div>
           </div>
         </div>
       </section>

@@ -23,10 +23,14 @@ export default function DepartmentPage() {
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
   const [subRef, subVisible] = useScrollReveal();
+  const [processRef, processVisible] = useScrollReveal();
   const [servRef, servVisible] = useScrollReveal();
-  const [blogRef, blogVisible] = useScrollReveal(); // Scroll reveal handler for the blog layer
+  const [blogRef, blogVisible] = useScrollReveal();
+  const [faqRef, faqVisible] = useScrollReveal();
   const [otherRef, otherVisible] = useScrollReveal();
 
+  // Active state for FAQ accordions
+const [activeFaq, setActiveFaq] = useState(0);
   if (!dept) return <Navigate to="/departments" replace />;
 
   // ─── DYNAMIC CONTEXTUAL BLOG CONTENT MAPPING MATRIX ───
@@ -139,7 +143,6 @@ export default function DepartmentPage() {
       }
     ];
 
-    // Check slug matches to inject contextual arrays
     if (deptSlug.includes('strategy') || deptSlug.includes('consulting')) return strategyArticles;
     if (deptSlug.includes('cloud') || deptSlug.includes('devops')) return cloudArticles;
     if (deptSlug.includes('data') || deptSlug.includes('intelligence')) return dataArticles;
@@ -149,11 +152,17 @@ export default function DepartmentPage() {
 
   const blogArticles = getDepartmentArticles(slug, dept.name);
 
+  // Fallback static QA information matrix block 
+  const currentFaqs = [
+    { q: `How long does a target roadmap deployment take within ${dept.name}?`, a: "Most enterprise engineering modifications or initial architectural setups route safely across 4 to 8 weeks depending entirely on schema scope." },
+    { q: "Do your optimization features cleanly bridge custom legacy platforms?", a: "Yes, our systems rely on secure API interfaces and isolated compute structures to prevent dependency breaking or production pipeline lag." },
+    { q: "What parameters outline ongoing support matrices?", a: "We supply dedicated DevOps oversight alongside structured framework audits to ensure high-capacity transaction handling continuously." }
+  ];
+
   return (
     <div className="pt-20 overflow-hidden bg-white selection:bg-primary-500 selection:text-white">
       {/* ─── HERO SECTION ─── */}
       <section className="relative py-20 lg:py-32 min-h-[65vh] flex items-center overflow-hidden">
-        {/* Background Layer */}
         <div className="absolute inset-0 z-0">
           <img
             src={dept.image}
@@ -166,12 +175,10 @@ export default function DepartmentPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30" />
         </div>
 
-        {/* Ambient Glows */}
         <div className="absolute -top-24 -left-24 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 pointer-events-none" style={{ background: dept.accent }} />
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[100px] opacity-15 pointer-events-none" style={{ background: dept.accent }} />
 
         <div className="container-max relative z-10 w-full px-4 sm:px-6">
-          {/* Premium Breadcrumb */}
           <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-500 mb-8 font-medium bg-slate-50/60 backdrop-blur-sm px-4 py-2 rounded-full w-fit border border-slate-100/80 animate-fade-up">
             <Link to="/" className="hover:text-primary-600 transition-colors">Home</Link>
             <span className="text-slate-300">/</span>
@@ -181,7 +188,6 @@ export default function DepartmentPage() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 items-center">
-            {/* Left Content Column */}
             <div className="lg:col-span-7 animate-fade-up" style={{ animationDelay: '0.1s' }}>
               <div 
                 className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-md rounded-2xl px-5 py-3 mb-6 shadow-md border logo-float"
@@ -206,7 +212,6 @@ export default function DepartmentPage() {
               </div>
             </div>
 
-            {/* Right Stats Column */}
             <div className="lg:col-span-5 grid grid-cols-3 gap-4 sm:gap-6">
               {dept.stats.map((stat, i) => (
                 <div
@@ -223,7 +228,7 @@ export default function DepartmentPage() {
         </div>
       </section>
 
-      {/* ─── SUB-DEPARTMENTS SECTIONS (ENLARGED BOXES) ─── */}
+      {/* ─── SUB-DEPARTMENTS SECTIONS (REDUCED CARD PADDING & STABLE HOVER) ─── */}
       <section className="py-20 lg:py-28 bg-slate-50 border-y border-slate-100/60" ref={subRef}>
         <div className="container-max px-4 sm:px-6">
           <div className="text-center mb-16 max-w-2xl mx-auto">
@@ -236,19 +241,19 @@ export default function DepartmentPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {dept.subDepartments.map((sub, i) => (
               <Link
                 key={i}
                 to={`/departments/${dept.slug}/${sub.slug}`}
-                className={`group flex flex-col justify-between p-8 bg-white rounded-[24px] border border-slate-200/60 shadow-sm hover:shadow-xl hover:border-slate-300/40 transition-all duration-700 block card-hover ${
+                className={`group flex flex-col justify-between p-5 sm:p-6 bg-white rounded-[24px] border border-slate-200/60 shadow-sm hover:shadow-xl hover:border-slate-300/40 transition-all duration-500 block card-hover ${
                   subVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
                 style={{ transitionDelay: `${i * 90}ms` }}
               >
                 <div>
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-6 font-bold text-base shadow-sm group-hover:scale-110 transition-transform"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-5 font-bold text-sm shadow-sm group-hover:scale-105 transition-transform"
                     style={{
                       background: `${dept.accent}08`,
                       border: `1px solid ${dept.accent}25`,
@@ -258,18 +263,20 @@ export default function DepartmentPage() {
                     {String(i + 1).padStart(2, '0')}
                   </div>
 
-                  <h3 className="text-slate-900 font-bold text-xl mb-3 group-hover:text-primary-600 transition-colors tracking-tight leading-snug">
+                  <h3 className="text-slate-900 font-bold text-lg mb-2 group-hover:text-primary-600 transition-colors tracking-tight leading-snug">
                     {sub.name}
                   </h3>
 
-                  <p className="text-slate-500 text-sm sm:text-base leading-relaxed font-medium line-clamp-4">
+                  <p className="text-slate-500 text-xs sm:text-sm leading-relaxed font-medium line-clamp-4">
                     {sub.desc}
                   </p>
                 </div>
 
-                <div className="flex items-center justify-end pt-6 border-t border-slate-50 mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="flex items-center gap-1.5 text-sm font-bold text-primary-600">
-                    Explore Deep Dive <ArrowRightIcon size={14} />
+                {/* Permanent clean link layout without dynamic alignment hopping shifts */}
+                <div className="flex items-center justify-start pt-4 border-t border-slate-100 mt-5">
+                  <span className="flex items-center gap-1.5 text-xs font-bold text-slate-700 group-hover:text-primary-600 transition-colors duration-300">
+                    Explore Deep Dive 
+                    <ArrowRightIcon size={12} className="transform transition-transform duration-300 group-hover:translate-x-1.5" />
                   </span>
                 </div>
               </Link>
@@ -278,13 +285,44 @@ export default function DepartmentPage() {
         </div>
       </section>
 
+      {/* ─── NEW HIGHLY INFORMATIVE PROCESS TIMELINE ─── */}
+      <section className="py-20 lg:py-28 bg-white" ref={processRef}>
+        <div className="container-max px-4 sm:px-6">
+          <div className="text-center mb-16 max-w-2xl mx-auto">
+            <p className="text-primary-600 font-extrabold uppercase tracking-widest text-xs sm:text-sm mb-3">Operational Pipeline</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Deployment Strategy Blueprint
+            </h2>
+            <p className="text-slate-500 text-base mt-3 font-medium">
+              A breakdown of how we integrate structural engineering changes cleanly alongside your running operational targets.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {[
+              { title: "01 / Structural Evaluation", body: "We deeply crawl your architecture schemas to flag data silos, layout bottlenecks, and integration vectors." },
+              { title: "02 / Scaled Engineering", body: "Our full-stack teams build dedicated deployment clusters utilizing modern container models without breaking active loops." },
+              { title: "03 / Automated Delivery", body: "Deploy transaction features directly into standard pipelines with zero service drop variables or user interruptions." }
+            ].map((step, index) => (
+              <div 
+                key={index} 
+                className={`relative bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-100 transition-all duration-700 ${processVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                style={{ transitionDelay: `${index * 150}ms` }}
+              >
+                <div className="h-1.5 w-12 rounded-full mb-6" style={{ backgroundColor: dept.accent }} />
+                <h4 className="text-slate-900 font-black text-lg mb-3 tracking-tight">{step.title}</h4>
+                <p className="text-slate-600 text-sm leading-relaxed font-medium">{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── SERVICES & ADVANTAGES SPLIT GRID ─── */}
-      <section className="py-20 lg:py-28 bg-white" ref={servRef}>
+      <section className="py-20 lg:py-28 bg-slate-50 border-y border-slate-100" ref={servRef}>
         <div className="container-max px-4 sm:px-6">
           <div className="grid lg:grid-cols-12 gap-16 items-start">
-            
-            {/* Left Capabilities Card Box */}
-            <div className={`lg:col-span-6 bg-slate-50/50 backdrop-blur-md rounded-[32px] p-8 sm:p-12 border border-slate-100 shadow-xl shadow-slate-100/70 transition-all duration-700 ${servVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+            <div className={`lg:col-span-6 bg-white rounded-[32px] p-8 sm:p-12 border border-slate-200/60 shadow-xl shadow-slate-100/70 transition-all duration-700 ${servVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
               <p className="text-primary-600 font-extrabold uppercase tracking-widest text-xs sm:text-sm mb-3">Services</p>
               <h2 className="text-3xl font-black text-slate-900 mb-8 tracking-tight">
                 What We <span className="gradient-text">Deliver</span>
@@ -293,7 +331,7 @@ export default function DepartmentPage() {
                 {dept.services.map((service, i) => (
                   <div
                     key={i}
-                    className={`flex items-start gap-3.5 bg-white rounded-2xl p-4 border border-slate-200/60 shadow-sm card-hover transition-all duration-500 ${servVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+                    className={`flex items-start gap-3.5 bg-slate-50 rounded-2xl p-4 border border-slate-100 shadow-sm card-hover transition-all duration-500 ${servVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
                     style={{ transitionDelay: `${i * 70}ms` }}
                   >
                     <CheckCircleIcon size={20} className="text-primary-500 flex-shrink-0 mt-0.5" />
@@ -303,7 +341,6 @@ export default function DepartmentPage() {
               </div>
             </div>
 
-            {/* Right Strategic Advantages Layout */}
             <div className={`lg:col-span-6 space-y-8 lg:pt-4 transition-all duration-700 ${servVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
               <div>
                 <p className="text-primary-600 font-extrabold uppercase tracking-widest text-xs sm:text-sm mb-3">Why Choose Us</p>
@@ -331,13 +368,50 @@ export default function DepartmentPage() {
                 ))}
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
 
+      {/* ─── NEW CONTEXTUAL FAQ INFORMATION LAYER ─── */}
+      <section className="py-20 lg:py-28 bg-white" ref={faqRef}>
+        <div className="container-max px-4 sm:px-6">
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-5">
+              <p className="text-primary-600 font-extrabold uppercase tracking-widest text-xs sm:text-sm mb-3">Faq Matrix</p>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">
+                Sector Insights & Technical Clarity
+              </h2>
+              <p className="text-slate-500 text-sm sm:text-base font-medium leading-relaxed">
+                Clear structural parameters focused entirely on enterprise expectations inside {dept.name}.
+              </p>
+            </div>
+
+            <div className="lg:col-span-7 space-y-4">
+              {currentFaqs.map((faq, index) => (
+                <div 
+                  key={index} 
+                  className={`border border-slate-100 rounded-2xl p-5 bg-slate-50/60 transition-all duration-500 ${faqVisible ? 'opacity-100' : 'opacity-0'}`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <button 
+                    onClick={() => setActiveFaq(activeFaq === index ? null : index)}
+                    className="w-full flex justify-between items-center text-left font-bold text-slate-900 text-base sm:text-lg tracking-tight"
+                  >
+                    <span>{faq.q}</span>
+                    <span className="text-xl ml-2 font-light text-slate-400">{activeFaq === index ? '−' : '+'}</span>
+                  </button>
+                  <div className={`transition-all duration-300 overflow-hidden ${activeFaq === index ? 'max-h-40 mt-3 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-slate-600 text-sm leading-relaxed font-medium">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ─── NEW CONTEXTUAL BLOG SECTION FOR THE CURRENT DEPARTMENT ─── */}
-      <section className="py-20 lg:py-28 bg-white border-t border-slate-100" ref={blogRef}>
+      <section className="py-20 lg:py-28 bg-slate-50 border-t border-slate-100" ref={blogRef}>
         <div className="container-max px-4 sm:px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
@@ -407,7 +481,7 @@ export default function DepartmentPage() {
       </section>
 
       {/* ─── OTHER DEPARTMENTS MATRIX ─── */}
-      <section className="py-16 lg:py-24 bg-slate-50 border-t border-slate-100" ref={otherRef}>
+      <section className="py-16 lg:py-24 bg-white border-t border-slate-100" ref={otherRef}>
         <div className="container-max px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-10 tracking-tight">Explore Other Departments</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -437,10 +511,9 @@ export default function DepartmentPage() {
       </section>
 
       {/* ─── LARGE CTA CONTAINER ─── */}
-      <section className="py-12 lg:py-20 bg-white">
+      <section className="py-12 lg:py-20 bg-slate-50 border-t border-slate-100">
         <div className="container-max px-4 sm:px-6">
           <div className="bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-[40px] p-10 sm:p-16 text-center relative overflow-hidden shadow-2xl border border-slate-800">
-            {/* Ambient Ambient Glow */}
             <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full blur-[140px] opacity-25 pointer-events-none" style={{ background: dept.accent }} />
             
             <div className="relative z-10 max-w-2xl mx-auto space-y-6">

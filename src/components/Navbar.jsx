@@ -147,12 +147,7 @@ export default function Navbar() {
             })}
 
             {/* Phone */}
-            <a
-              href="tel:+919370992910"
-              className="font-bold text-blue-600 hover:text-blue-700"
-            >
-              +91 9370992910
-            </a>
+            
 
             {/* CTA */}
             <Link to="/contact" className="btn-primary hover-pulse-glow">
@@ -230,12 +225,6 @@ export default function Navbar() {
             })}
 
             <div className="pt-4 border-t border-slate-100 space-y-4">
-              <a
-                href="tel:+919370992910"
-                className="block font-bold text-center text-blue-600 hover:text-blue-700 py-2"
-              >
-                +91 9370992910
-              </a>
               <Link
                 to="/contact"
                 className="btn-primary block text-center"

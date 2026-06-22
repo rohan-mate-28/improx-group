@@ -480,35 +480,8 @@ const [activeFaq, setActiveFaq] = useState(0);
         </div>
       </section>
 
-      {/* ─── OTHER DEPARTMENTS MATRIX ─── */}
-      <section className="py-16 lg:py-24 bg-white border-t border-slate-100" ref={otherRef}>
-        <div className="container-max px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-10 tracking-tight">Explore Other Departments</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-            {departments.filter(d => d.id !== dept.id).slice(0, 5).map((d, i) => (
-              <Link
-                key={d.id}
-                to={`/departments/${d.slug}`}
-                className={`glass bg-white/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg border border-slate-200/60 card-hover group transition-all duration-700 ${otherVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="relative h-24 overflow-hidden">
-                  <img
-                    src={d.image}
-                    alt={d.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  />
-                  <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/30 transition-colors" />
-                  <span className="absolute inset-0 flex items-center justify-center text-3xl drop-shadow-md group-hover:scale-110 transition-transform duration-300">{d.icon}</span>
-                </div>
-                <p className="text-slate-800 text-sm sm:text-base font-bold text-center py-4 group-hover:text-primary-600 transition-colors tracking-tight px-2 truncate">{d.name}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+ 
+ 
 
       {/* ─── LARGE CTA CONTAINER ─── */}
       <section className="py-12 lg:py-20 bg-slate-50 border-t border-slate-100">

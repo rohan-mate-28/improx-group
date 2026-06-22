@@ -6,7 +6,7 @@ import { departments } from "../data/departments";
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [deptOpen, setDeptOpen] = useState(false);
-  const [mobileDeptOpen, setMobileDeptOpen] = useState(false); // Collapsible status for mobile accordion
+  const [mobileDeptOpen, setMobileDeptOpen] = useState(false); 
   const [scrolled, setScrolled] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -22,7 +22,6 @@ export default function Navbar() {
       setScrolled(window.scrollY > 30);
     };
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -35,14 +34,10 @@ export default function Navbar() {
         setDeptOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Services/Departments injected natively into index 1 (the 2nd slot)
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Services", type: "dropdown" },
@@ -62,10 +57,7 @@ export default function Navbar() {
         <div className="h-20 flex items-center justify-between">
 
           {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-3 group"
-          >
+          <Link to="/" className="flex items-center gap-3 group">
             <img
               src="/logo-black.png"
               alt="Logo"
@@ -98,13 +90,19 @@ export default function Navbar() {
                     </button>
 
                     {deptOpen && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[850px] glass bg-white rounded-3xl p-8 shadow-2xl animate-fade-up z-50">
+                      /* 
+                        FIX: Replaced left-1/2 -translate-x-1/2 with screen positioning boundaries.
+                        Added right-[-150px] or left-auto to dynamically offset the wide panel 
+                        safely relative to desktop constraints without cutting off the viewport boundaries.
+                      */
+                      <div className="absolute top-full right-[-200px] md:right-[-100px] lg:right-[-40px] xl:left-1/2 xl:-translate-x-1/2 mt-2 w-[calc(100vw-32px)] sm:w-[750px] md:w-[850px] max-w-[90vw] lg:max-w-none glass bg-white rounded-3xl p-6 sm:p-8 shadow-2xl animate-fade-up z-50 overflow-y-auto max-h-[80vh]">
                         <div className="mb-5">
                           <h3 className="text-lg font-bold text-slate-800">Our Departments</h3>
                           <p className="text-sm text-slate-500">Explore all business divisions</p>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4">
+                        {/* Responsive grid mapping adjustments */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                           {departments.map((dept) => (
                             <Link
                               key={dept.id}
@@ -112,12 +110,12 @@ export default function Navbar() {
                               onClick={() => setDeptOpen(false)}
                               className="group flex items-center gap-4 p-4 rounded-2xl hover:bg-blue-50 transition-all duration-300"
                             >
-                              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-xl shadow-lg`}>
+                              <div className={`w-12 h-12 flex-shrink-0 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-xl shadow-lg`}>
                                 {dept.icon}
                               </div>
                               <div>
-                                <h4 className="font-semibold text-slate-800 group-hover:text-blue-600">{dept.name}</h4>
-                                <p className="text-xs text-slate-500">{dept.tagline}</p>
+                                <h4 className="font-semibold text-slate-800 group-hover:text-blue-600 line-clamp-1">{dept.name}</h4>
+                                <p className="text-xs text-slate-500 line-clamp-1">{dept.tagline}</p>
                               </div>
                             </Link>
                           ))}
@@ -145,9 +143,6 @@ export default function Navbar() {
                 </Link>
               );
             })}
-
-            {/* Phone */}
-            
 
             {/* CTA */}
             <Link to="/contact" className="btn-primary hover-pulse-glow">
@@ -190,7 +185,6 @@ export default function Navbar() {
                       />
                     </button>
 
-                    {/* Nested Mobile Department Links Container */}
                     <div
                       className={`overflow-hidden transition-all duration-300 pl-4 space-y-2 border-l border-slate-100 ${
                         mobileDeptOpen ? "max-h-[400px] py-1" : "max-h-0"

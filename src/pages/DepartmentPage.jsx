@@ -483,28 +483,7 @@ const [activeFaq, setActiveFaq] = useState(0);
  
  
 
-      {/* ─── LARGE CTA CONTAINER ─── */}
-      <section className="py-12 lg:py-20 bg-slate-50 border-t border-slate-100">
-        <div className="container-max px-4 sm:px-6">
-          <div className="bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-[40px] p-10 sm:p-16 text-center relative overflow-hidden shadow-2xl border border-slate-800">
-            <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full blur-[140px] opacity-25 pointer-events-none" style={{ background: dept.accent }} />
-            
-            <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight text-white">
-                Ready to get started with {dept.name}?
-              </h2>
-              <p className="text-slate-400 text-base sm:text-lg leading-relaxed font-medium max-w-xl mx-auto">
-                Let's discover your structural business needs and deploy an engineering ecosystem built tailored for sustainable operations.
-              </p>
-              <div className="pt-4">
-                <Link to="/contact" className="btn-primary bg-white text-slate-950 hover:bg-slate-100 font-bold text-base px-10 py-4 inline-flex items-center gap-3 rounded-2xl shadow-xl shadow-black/20">
-                  Book a Free Consultation <ArrowRightIcon size={18} className="text-slate-950" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+       
     </div>
   );
 }

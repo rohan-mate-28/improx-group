@@ -322,19 +322,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─── CALL TO ACTION (CTA) ─── */}
-      <section className="py-24 bg-gradient-to-b from-white to-slate-50 border-t border-slate-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-900 mb-6 tracking-tight">
-            Let's build something <span className="gradient-text">exceptional</span> together
-          </h2>
-          <p className="text-slate-500 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Ready to integrate your engineering, customer acquisition, and operational pipelines into a singular high-performance machine?
-          </p>
-          <Link to="/contact" className="btn-primary inline-flex items-center gap-3 text-base font-bold px-10 py-5 rounded-xl shadow-lg shadow-primary-600/10 hover:shadow-xl transition-all">
-            Initiate Consultation <ArrowRightIcon className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
+       
 
     </div>
   );

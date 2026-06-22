@@ -294,33 +294,7 @@ export default function DepartmentsPage() {
       </section>
 
       {/* ─── 8. PREMIUM BOTTOM CTA ─── */}
-      <section className="py-12 lg:py-20 bg-white">
-        <div className="container-max px-4 sm:px-6">
-          <div className="relative rounded-[32px] overflow-hidden shadow-2xl border border-slate-800">
-            <img
-              src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80"
-              alt="Call to Action Background"
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[1px]" />
-
-            <div className="relative z-10 p-10 sm:p-16 text-center max-w-2xl mx-auto space-y-6">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-                Ready to Work With Improx Group?
-              </h2>
-              <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed">
-                Discover the right department and specialized service ecosystem configured for your business goals.
-              </p>
-              <div className="pt-2">
-                <Link to="/contact" className="btn-primary inline-flex items-center gap-3 px-8 py-4 rounded-xl text-base shadow-xl">
-                  Talk With Our Experts <ArrowRightIcon size={16} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+   
 
     </div>
   );

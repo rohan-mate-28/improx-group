@@ -25,7 +25,6 @@ export default function InquirySection() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Smooth high-end button loader simulation
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -35,50 +34,47 @@ export default function InquirySection() {
   return (
     <section 
       ref={sectionRef}
-      className={`py-20 lg:py-24 bg-slate-950 text-white relative overflow-hidden border-t border-slate-900 transition-all duration-1000 ease-out ${
+      className={`py-20 lg:py-24 bg-gradient-to-b from-slate-50 to-blue-50/50 text-slate-800 relative overflow-hidden border-t border-slate-200 transition-all duration-1000 ease-out ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
-      {/* Premium Ambient Light Glows */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary-500/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
+      {/* Decorative Subtle Background Gradients */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-sky-400/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Subtle Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
+      {/* Modern Light Dot Grid Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
 
       <div className="container-max px-4 sm:px-6 relative z-10">
-        <div className="max-w-4xl mx-auto bg-slate-900/60 border border-slate-800/80 rounded-[32px] p-6 sm:p-12 shadow-2xl backdrop-blur-xl relative group">
+        <div className="max-w-4xl mx-auto bg-white border border-slate-200/80 rounded-[32px] p-6 sm:p-12 shadow-[0_25px_50px_-12px_rgba(15,23,42,0.06)] relative">
           
-          {/* Top Decorative Border Accent */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
-
           <div className="text-center max-w-xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-1.5 text-primary-400 text-xs font-black uppercase tracking-widest bg-primary-500/10 border border-primary-500/20 px-4 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse" />
-              Project Engine
+            <span className="inline-flex items-center gap-1.5 text-blue-600 text-xs font-bold uppercase tracking-widest bg-blue-50 border border-blue-100 px-4 py-1.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+              Project Blueprint
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white mt-4 mb-3">
-              Let’s Build Something <span className="gradient-text shimmer-text">Exceptional</span>
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 mt-4 mb-3">
+              Ready to grow your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-sky-500">Business?</span>
             </h2>
-            <p className="text-slate-400 text-base font-medium leading-relaxed">
-              Drop your project requirements below. Our engineering architecture desk will analyze constraints to map a conversion-first solution framework.
+            <p className="text-slate-500 text-base font-medium leading-relaxed">
+              Tell us what you're looking for. Our strategy consultants will map out a custom high-conversion design layout built tailored to your niche.
             </p>
           </div>
 
           {submitted ? (
-            <div className="text-center py-16 space-y-5 max-w-md mx-auto animate-fade-up-strong">
-              <div className="w-20 h-20 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto text-emerald-400 text-4xl shadow-xl shadow-emerald-500/5 rotate-6 hover:rotate-0 transition-transform duration-300">
+            <div className="text-center py-16 space-y-5 max-w-md mx-auto">
+              <div className="w-20 h-20 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center mx-auto text-emerald-500 text-4xl shadow-md rotate-6 hover:rotate-0 transition-transform duration-300">
                 ✓
               </div>
-              <h3 className="text-2xl font-black text-white tracking-tight">Inquiry Received Perfectly</h3>
-              <p className="text-slate-400 text-sm font-medium leading-relaxed">
-                Thank you. Our engineering analysts are reviewing your targets and will align scope options within one business day.
+              <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Inquiry Submitted Successfully</h3>
+              <p className="text-slate-500 text-sm font-medium leading-relaxed">
+                Thank you! We have logged your specifications and will match a framework proposal for your review within 24 hours.
               </p>
               <button
-                className="inline-block pt-4 text-sm font-bold text-primary-400 hover:text-primary-300 transition-colors underline underline-offset-4 decoration-primary-500/30 hover:decoration-primary-400"
+                className="inline-block pt-4 text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors underline underline-offset-4"
                 onClick={() => { setSubmitted(false); setForm({ name: '', email: '', businessType: '', budget: '', requirements: '' }); }}
               >
-                Submit Alternative Scope
+                Submit Alternative Concept
               </button>
             </div>
           ) : (
@@ -87,27 +83,27 @@ export default function InquirySection() {
               {/* Row 1 */}
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="block text-xs font-black uppercase text-slate-400 tracking-wider">Your Name *</label>
+                  <label className="block text-xs font-bold uppercase text-slate-500 tracking-wider">Your Name *</label>
                   <input
                     type="text"
                     name="name"
                     required
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="John Doe"
-                    className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-primary-500 rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/10 text-sm font-medium transition-all duration-300 hover:border-slate-700"
+                    placeholder="e.g. Adv. Rohit Sharma"
+                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-blue-500 focus:bg-white rounded-xl px-4 py-3.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/5 text-sm font-medium transition-all duration-300 hover:border-slate-300"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-xs font-black uppercase text-slate-400 tracking-wider">Email Address *</label>
+                  <label className="block text-xs font-bold uppercase text-slate-500 tracking-wider">Email Address *</label>
                   <input
                     type="email"
                     name="email"
                     required
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="john@company.com"
-                    className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-primary-500 rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/10 text-sm font-medium transition-all duration-300 hover:border-slate-700"
+                    placeholder="name@company.com"
+                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-blue-500 focus:bg-white rounded-xl px-4 py-3.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/5 text-sm font-medium transition-all duration-300 hover:border-slate-300"
                   />
                 </div>
               </div>
@@ -115,31 +111,31 @@ export default function InquirySection() {
               {/* Row 2 */}
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="block text-xs font-black uppercase text-slate-400 tracking-wider">Industry / Niche</label>
+                  <label className="block text-xs font-bold uppercase text-slate-500 tracking-wider">Your Industry / Niche</label>
                   <input
                     type="text"
                     name="businessType"
                     value={form.businessType}
                     onChange={handleChange}
-                    placeholder="e.g., Legal, Real Estate, Health & Gym"
-                    className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-primary-500 rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/10 text-sm font-medium transition-all duration-300 hover:border-slate-700"
+                    placeholder="e.g., Law Firm, Chartered Accountant, Gym"
+                    className="w-full bg-slate-50/50 border border-slate-200 focus:border-blue-500 focus:bg-white rounded-xl px-4 py-3.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/5 text-sm font-medium transition-all duration-300 hover:border-slate-300"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-xs font-black uppercase text-slate-400 tracking-wider">Target Objective Scale</label>
+                  <label className="block text-xs font-bold uppercase text-slate-500 tracking-wider">Project Niche Level</label>
                   <div className="relative">
                     <select
                       name="budget"
                       value={form.budget}
                       onChange={handleChange}
-                      className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-primary-500 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-primary-500/10 text-sm font-medium transition-all duration-300 hover:border-slate-700 appearance-none cursor-pointer"
+                      className="w-full bg-slate-50/50 border border-slate-200 focus:border-blue-500 focus:bg-white rounded-xl px-4 py-3.5 text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/5 text-sm font-medium transition-all duration-300 hover:border-slate-300 appearance-none cursor-pointer"
                     >
-                      <option value="" className="bg-slate-900 text-slate-400">Select business objective...</option>
-                      <option value="basic" className="bg-slate-900">Essential Blueprint (High-Trust Portfolio)</option>
-                      <option value="growth" className="bg-slate-900">Growth Engine (Automated Lead Generation)</option>
-                      <option value="enterprise" className="bg-slate-900">Dominator Framework (Custom SaaS / Scaled Tech Stack)</option>
+                      <option value="" className="text-slate-400">Select business target scale...</option>
+                      <option value="basic">Essential Pack (High-Trust Brand Portfolio)</option>
+                      <option value="growth">Growth Pack (Automated Lead Generation Hub)</option>
+                      <option value="enterprise">Dominator Pack (Custom Custom Architecture / SaaS)</option>
                     </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500 text-xs">
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
                       ▼
                     </div>
                   </div>
@@ -148,15 +144,15 @@ export default function InquirySection() {
 
               {/* Row 3 */}
               <div className="space-y-2">
-                <label className="block text-xs font-black uppercase text-slate-400 tracking-wider">Project Specifications & Ideas *</label>
+                <label className="block text-xs font-bold uppercase text-slate-500 tracking-wider">Project Specifications & Ideas *</label>
                 <textarea
                   name="requirements"
                   required
                   rows={4}
                   value={form.requirements}
                   onChange={handleChange}
-                  placeholder="Outline any special design features, automated alerts, integrations, or scheduling systems you need built..."
-                  className="w-full bg-slate-950/80 border border-slate-800/80 focus:border-primary-500 rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/10 text-sm font-medium transition-all duration-300 hover:border-slate-700 resize-none"
+                  placeholder="Tell us about special layout requests, automation tools, maps, appointment schedulers, or pages you want setup..."
+                  className="w-full bg-slate-50/50 border border-slate-200 focus:border-blue-500 focus:bg-white rounded-xl px-4 py-3.5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-500/5 text-sm font-medium transition-all duration-300 hover:border-slate-300 resize-none"
                 />
               </div>
 
@@ -164,15 +160,15 @@ export default function InquirySection() {
               <button
                 type="submit"
                 disabled={!form.name || !form.email || !form.requirements || isSubmitting}
-                className="w-full btn-primary py-4 text-sm font-bold shadow-xl shadow-primary-500/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 relative overflow-hidden transition-all duration-300"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-4 text-sm font-bold rounded-xl shadow-lg shadow-blue-600/10 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all duration-300 hover:-translate-y-0.5"
               >
                 {isSubmitting ? (
                   <>
                     <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Analyzing Blueprint...
+                    Assembling Strategy Blueprint...
                   </>
                 ) : (
-                  'Deploy Project Architecture Inquiry'
+                  'Submit Growth Inquiry'
                 )}
               </button>
             </form>

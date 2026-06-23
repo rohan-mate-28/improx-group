@@ -436,25 +436,8 @@ export default function SubDepartmentPage() {
         </div>
       </section>
 
-      {/* ─── CTA SECTION ─── */}
-      <section className="section-pad section-light">
-        <div className="container-max">
-          <div className="glass rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden bg-white border border-slate-100 shadow-sm" style={{ borderColor: `${dept.accent || '#3b82f6'}22` }}>
-            <div className="absolute -top-12 -left-12 w-32 h-32 rounded-full blur-2xl opacity-40" style={{ background: dept.accent }} />
-            <div className="absolute -bottom-12 -right-12 w-32 h-32 rounded-full blur-2xl opacity-40" style={{ background: dept.accent }} />
-            
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3 max-w-2xl mx-auto leading-tight">
-              Need custom implementation architectures for {subDept.name}?
-            </h2>
-            <p className="text-slate-500 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
-              Connect with our project desk engineers to scope your timeline goals and execute your enterprise strategy.
-            </p>
-            <Link to="/contact" className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm shadow-lg shadow-primary-500/10">
-              Book standard audit <ArrowRightIcon />
-            </Link>
-          </div>
-        </div>
-      </section>
+       
+       
     </div>
   );
 }

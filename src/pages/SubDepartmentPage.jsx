@@ -349,252 +349,232 @@ export default function SubDepartmentPage() {
 
       {/* ─── TABBED DEEP-DIVE ─── */}
       <section className="py-24 bg-slate-50/40 border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-10">
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2 block">
-              Full Picture
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Everything You Need to Know
-            </h2>
-          </div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-2xl mb-16">
+      <span className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2 block">
+        Full Picture
+      </span>
+      <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+        Everything You Need to Know
+      </h2>
+    </div>
 
-          {/* Tab controls */}
-          <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-200 pb-px">
-            {tabs.map((tab, i) => (
-              <button
+    {/* Stacked Layout — One After Another */}
+    <div className="space-y-16">
+      
+      {/* 1. What It Is */}
+      <div className="bg-white border border-slate-200/60 rounded-2xl p-6 sm:p-10 shadow-sm">
+        <div className="grid md:grid-cols-2 gap-10 items-start">
+          <div className="space-y-4">
+            <h3 className="text-xl font-black text-slate-900">
+              What {subDept.name} Actually Is
+            </h3>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              {subDept.desc}
+            </p>
+            {subDept.overview && (
+              <p className="text-slate-500 text-sm leading-relaxed">
+                {subDept.overview.split(". ").slice(0, 3).join(". ")}.
+              </p>
+            )}
+          </div>
+          <div className="space-y-3">
+            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">
+              What this service covers
+            </h4>
+            {(subDept.keyPoints || []).map((kp, i) => (
+              <div
                 key={i}
-                onClick={() => setActiveTab(i)}
-                className={`px-4 py-2.5 text-sm font-semibold rounded-t-lg border-b-2 transition-all -mb-px ${
-                  activeTab === i
-                    ? "text-white border-current"
-                    : "border-transparent text-slate-500 hover:text-slate-700 bg-white border border-slate-200 rounded-lg mb-1"
-                }`}
-                style={
-                  activeTab === i
-                    ? { background: accent, borderColor: accent }
-                    : {}
-                }
+                className="flex items-center gap-3 py-2.5 border-b border-slate-50"
               >
-                {tab}
-              </button>
+                <div
+                  className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0"
+                  style={{ background: `${accent}15` }}
+                >
+                  <CheckCircleIcon size={12} style={{ color: accent }} />
+                </div>
+                <span className="text-sm text-slate-700 font-medium">
+                  {kp.title}
+                </span>
+              </div>
             ))}
           </div>
+        </div>
+      </div>
 
-          <div className="bg-white border border-slate-200/60 rounded-2xl p-6 sm:p-10 shadow-sm min-h-[300px]">
-            {/* Tab 0 — What It Is */}
-            {activeTab === 0 && (
-              <div className="grid md:grid-cols-2 gap-10 items-start">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-black text-slate-900">
-                    What {subDept.name} Actually Is
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    {subDept.desc}
-                  </p>
-                  {subDept.overview && (
-                    <p className="text-slate-500 text-sm leading-relaxed">
-                      {subDept.overview.split(". ").slice(0, 3).join(". ")}.
-                    </p>
-                  )}
+      {/* 2. Who It's For */}
+      <div className="bg-white border border-slate-200/60 rounded-2xl p-6 sm:p-10 shadow-sm">
+        <div className="space-y-6">
+          <h3 className="text-xl font-black text-slate-900">
+            Who Gets the Most from {subDept.name}
+          </h3>
+          {subDept.whoItsFor && (
+            <p className="text-slate-600 text-sm leading-relaxed max-w-3xl">
+              {subDept.whoItsFor}
+            </p>
+          )}
+          <div className="grid sm:grid-cols-3 gap-5 mt-4">
+            {[
+              {
+                label: "Scale-ups",
+                desc: "Growing faster than existing processes and infrastructure can support. Needs external expertise to catch up.",
+              },
+              {
+                label: "Enterprises",
+                desc: "Complex environments with legacy debt, compliance pressure, or the need to modernize without disrupting live operations.",
+              },
+              {
+                label: "Transformation projects",
+                desc: "Organizations mid-change — a merger, pivot, or overhaul — who need structured external guidance to navigate it well.",
+              },
+            ].map((seg, i) => (
+              <div
+                key={i}
+                className="bg-slate-50 border border-slate-100 rounded-2xl p-5"
+              >
+                <div
+                  className="w-8 h-8 rounded-lg mb-3 flex items-center justify-center text-xs font-bold"
+                  style={{ background: `${accent}15`, color: accent }}
+                >
+                  0{i + 1}
                 </div>
-                <div className="space-y-3">
-                  <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">
-                    What this service covers
-                  </h4>
-                  {(subDept.keyPoints || []).map((kp, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-3 py-2.5 border-b border-slate-50"
-                    >
-                      <div
-                        className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0"
-                        style={{ background: `${accent}15` }}
-                      >
-                        <CheckCircleIcon size={12} style={{ color: accent }} />
-                      </div>
-                      <span className="text-sm text-slate-700 font-medium">
-                        {kp.title}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Tab 1 — Who It's For */}
-            {activeTab === 1 && (
-              <div className="space-y-6">
-                <h3 className="text-xl font-black text-slate-900">
-                  Who Gets the Most from {subDept.name}
-                </h3>
-                {subDept.whoItsFor && (
-                  <p className="text-slate-600 text-sm leading-relaxed max-w-3xl">
-                    {subDept.whoItsFor}
-                  </p>
-                )}
-                <div className="grid sm:grid-cols-3 gap-5 mt-4">
-                  {[
-                    {
-                      label: "Scale-ups",
-                      desc: "Growing faster than existing processes and infrastructure can support. Needs external expertise to catch up.",
-                    },
-                    {
-                      label: "Enterprises",
-                      desc: "Complex environments with legacy debt, compliance pressure, or the need to modernize without disrupting live operations.",
-                    },
-                    {
-                      label: "Transformation projects",
-                      desc: "Organizations mid-change — a merger, pivot, or overhaul — who need structured external guidance to navigate it well.",
-                    },
-                  ].map((seg, i) => (
-                    <div
-                      key={i}
-                      className="bg-slate-50 border border-slate-100 rounded-2xl p-5"
-                    >
-                      <div
-                        className="w-8 h-8 rounded-lg mb-3 flex items-center justify-center text-xs font-bold"
-                        style={{ background: `${accent}15`, color: accent }}
-                      >
-                        0{i + 1}
-                      </div>
-                      <h4 className="font-bold text-slate-900 text-sm mb-2">
-                        {seg.label}
-                      </h4>
-                      <p className="text-xs text-slate-500 leading-relaxed">
-                        {seg.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Tab 2 — How We Deliver */}
-            {activeTab === 2 && (
-              <div className="space-y-6">
-                <h3 className="text-xl font-black text-slate-900">
-                  How We Deliver {subDept.name}
-                </h3>
-                {subDept.howWeDeliver ? (
-                  <p className="text-slate-600 text-sm leading-relaxed max-w-3xl">
-                    {subDept.howWeDeliver}
-                  </p>
-                ) : (
-                  <p className="text-slate-600 text-sm leading-relaxed max-w-3xl">
-                    We start with a structured discovery phase, build a delivery
-                    plan with your team, execute in tested increments, and hand
-                    over with full documentation and training.
-                  </p>
-                )}
-                <div className="grid sm:grid-cols-2 gap-5 mt-4">
-                  {[
-                    {
-                      title: "We stay through execution",
-                      body: "Most advisors deliver a recommendation and leave. We stay engaged until the recommendation is producing measurable results.",
-                    },
-                    {
-                      title: "Honest scope from day one",
-                      body: "We tell you when the problem is smaller — or larger — than you think. We scope to match the actual work.",
-                    },
-                    {
-                      title: "Specialists, not generalists",
-                      body: "Every team member has direct experience in this specific area, not just the parent department.",
-                    },
-                    {
-                      title: "Outcomes, not outputs",
-                      body: "We define success in terms that connect to your business: revenue, cost, speed, risk. Not deliverables billed.",
-                    },
-                  ].map((point, i) => (
-                    <div
-                      key={i}
-                      className="border border-slate-200/60 rounded-xl p-5 bg-white hover:shadow-sm transition-all"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <div
-                          className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                          style={{ background: `${accent}20` }}
-                        >
-                          <CheckCircleIcon
-                            size={11}
-                            style={{ color: accent }}
-                          />
-                        </div>
-                        <h4 className="font-bold text-slate-900 text-sm">
-                          {point.title}
-                        </h4>
-                      </div>
-                      <p className="text-xs text-slate-500 leading-relaxed pl-7">
-                        {point.body}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Tab 3 — What You Get */}
-            {activeTab === 3 && (
-              <div className="space-y-6">
-                <h3 className="text-xl font-black text-slate-900">
-                  What You Get from a {subDept.name} Engagement
-                </h3>
-                <p className="text-slate-600 text-sm leading-relaxed max-w-3xl">
-                  Every {subDept.name} engagement includes the following
-                  deliverables. Scope is confirmed in writing before work
-                  begins.
+                <h4 className="font-bold text-slate-900 text-sm mb-2">
+                  {seg.label}
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {seg.desc}
                 </p>
-                {subDept.whatYouGet && subDept.whatYouGet.length > 0 ? (
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {subDept.whatYouGet.map((item, i) => (
-                      <div
-                        key={i}
-                        className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100"
-                      >
-                        <div
-                          className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                          style={{ background: `${accent}15` }}
-                        >
-                          <CheckCircleIcon
-                            size={11}
-                            style={{ color: accent }}
-                          />
-                        </div>
-                        <span className="text-sm text-slate-700 font-medium leading-snug">
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {(dept.services || []).map((s, i) => (
-                      <div
-                        key={i}
-                        className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100"
-                      >
-                        <div
-                          className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                          style={{ background: `${accent}15` }}
-                        >
-                          <CheckCircleIcon
-                            size={11}
-                            style={{ color: accent }}
-                          />
-                        </div>
-                        <span className="text-sm text-slate-700 font-medium">
-                          {s}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
-            )}
+            ))}
           </div>
         </div>
-      </section>
+      </div>
 
+      {/* 3. How We Deliver */}
+      <div className="bg-white border border-slate-200/60 rounded-2xl p-6 sm:p-10 shadow-sm">
+        <div className="space-y-6">
+          <h3 className="text-xl font-black text-slate-900">
+            How We Deliver {subDept.name}
+          </h3>
+          {subDept.howWeDeliver ? (
+            <p className="text-slate-600 text-sm leading-relaxed max-w-3xl">
+              {subDept.howWeDeliver}
+            </p>
+          ) : (
+            <p className="text-slate-600 text-sm leading-relaxed max-w-3xl">
+              We start with a structured discovery phase, build a delivery
+              plan with your team, execute in tested increments, and hand
+              over with full documentation and training.
+            </p>
+          )}
+          <div className="grid sm:grid-cols-2 gap-5 mt-4">
+            {[
+              {
+                title: "We stay through execution",
+                body: "Most advisors deliver a recommendation and leave. We stay engaged until the recommendation is producing measurable results.",
+              },
+              {
+                title: "Honest scope from day one",
+                body: "We tell you when the problem is smaller — or larger — than you think. We scope to match the actual work.",
+              },
+              {
+                title: "Specialists, not generalists",
+                body: "Every team member has direct experience in this specific area, not just the parent department.",
+              },
+              {
+                title: "Outcomes, not outputs",
+                body: "We define success in terms that connect to your business: revenue, cost, speed, risk. Not deliverables billed.",
+              },
+            ].map((point, i) => (
+              <div
+                key={i}
+                className="border border-slate-200/60 rounded-xl p-5 bg-white hover:shadow-sm transition-all"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div
+                    className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: `${accent}20` }}
+                  >
+                    <CheckCircleIcon
+                      size={11}
+                      style={{ color: accent }}
+                    />
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-sm">
+                    {point.title}
+                  </h4>
+                </div>
+                <p className="text-xs text-slate-500 leading-relaxed pl-7">
+                  {point.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 4. What You Get */}
+      <div className="bg-white border border-slate-200/60 rounded-2xl p-6 sm:p-10 shadow-sm">
+        <div className="space-y-6">
+          <h3 className="text-xl font-black text-slate-900">
+            What You Get from a {subDept.name} Engagement
+          </h3>
+          <p className="text-slate-600 text-sm leading-relaxed max-w-3xl">
+            Every {subDept.name} engagement includes the following
+            deliverables. Scope is confirmed in writing before work
+            begins.
+          </p>
+          {subDept.whatYouGet && subDept.whatYouGet.length > 0 ? (
+            <div className="grid sm:grid-cols-2 gap-3">
+              {subDept.whatYouGet.map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100"
+                >
+                  <div
+                    className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                    style={{ background: `${accent}15` }}
+                  >
+                    <CheckCircleIcon
+                      size={11}
+                      style={{ color: accent }}
+                    />
+                  </div>
+                  <span className="text-sm text-slate-700 font-medium leading-snug">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 gap-3">
+              {(dept.services || []).map((s, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100"
+                >
+                  <div
+                    className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                    style={{ background: `${accent}15` }}
+                  >
+                    <CheckCircleIcon
+                      size={11}
+                      style={{ color: accent }}
+                    />
+                  </div>
+                  <span className="text-sm text-slate-700 font-medium">
+                    {s}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
       {/* ─── WHO IT'S FOR (FULL SECTION) ─── */}
       {subDept.whoItsFor && (
         <section className="py-20 bg-white border-t border-slate-100">
@@ -621,13 +601,13 @@ export default function SubDepartmentPage() {
                   Discuss Your Situation <ArrowRightIcon />
                 </Link>
               </div>
-              <div className="lg:col-span-7 bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 sm:p-10 text-white relative overflow-hidden">
+    <div className="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-10 text-slate-800 relative overflow-hidden border border-slate-100 shadow-sm">
                 <div
                   className="absolute -top-16 -right-16 w-48 h-48 rounded-full opacity-5"
                   style={{ background: accent }}
                 />
                 <div className="relative z-10 space-y-7">
-                  <h3 className="text-xl font-black">Engagement Principles</h3>
+                  <h3 className="text-xl font-black text-slate-900">Engagement Principles</h3>
                   <div className="space-y-4">
                     {[
                       {
@@ -652,14 +632,14 @@ export default function SubDepartmentPage() {
                       },
                     ].map((phase, i) => (
                       <div key={i} className="flex gap-4 items-start">
-                        <span className="text-xs font-black opacity-50 mt-0.5">
+                        <span className="text-xs font-black opacity-30 mt-0.5" style={{ color: accent }}>
                           {phase.n}
                         </span>
                         <div>
-                          <p className="text-sm font-bold text-white/90 mb-0.5">
+                          <p className="text-sm font-bold text-slate-900 mb-0.5">
                             {phase.t}
                           </p>
-                          <p className="text-xs text-white/60 leading-relaxed">
+                          <p className="text-xs text-slate-600 leading-relaxed">
                             {phase.b}
                           </p>
                         </div>
@@ -674,270 +654,271 @@ export default function SubDepartmentPage() {
       )}
 
       {/* ─── WHAT YOU GET (FULL DELIVERABLES) ─── */}
-      {subDept.whatYouGet && subDept.whatYouGet.length > 0 && (
-        <section className="py-24 bg-slate-50/40 border-t border-slate-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl mb-14">
-              <span
-                className="text-xs font-bold uppercase tracking-widest mb-2 block"
-                style={{ color: accent }}
-              >
-                Deliverables
+   {subDept.whatYouGet && subDept.whatYouGet.length > 0 && (
+  <section className="py-24 bg-white border-t border-slate-100 relative">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {/* Header section */}
+      <div className="max-w-2xl mb-16">
+        <span
+          className="text-xs font-bold uppercase tracking-widest mb-3 block"
+          style={{ color: accent }}
+        >
+          Deliverables
+        </span>
+        <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">
+          What You Walk Away With
+        </h2>
+        <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Every item below is agreed upon in writing before the engagement
+          begins. No ambiguities, no surprises—you know exactly what you are investing in.
+        </p>
+      </div>
+
+      {/* Modern Card Grid */}
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+        {subDept.whatYouGet.map((item, i) => (
+          <div
+            key={i}
+            className="flex items-start gap-4 p-6 bg-slate-50/60 border border-slate-100 rounded-2xl hover:bg-white hover:border-slate-200/80 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group"
+          >
+            {/* Styled Icon Container */}
+            <div
+              className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 relative transition-all duration-300 group-hover:scale-105"
+              style={{ background: `${accent}12` }}
+            >
+              <CheckCircleIcon size={15} style={{ color: accent }} />
+            </div>
+
+            {/* Content text */}
+            <div className="space-y-1 pt-0.5">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block">
+                Item 0{i + 1}
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">
-                What You Walk Away With
-              </h2>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Every item below is agreed in writing before the engagement
-                begins. You know exactly what you are buying.
+              <p className="text-sm text-slate-800 font-semibold leading-relaxed group-hover:text-slate-900 transition-colors">
+                {item}
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {subDept.whatYouGet.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-4 p-5 bg-white border border-slate-200/60 rounded-2xl hover:shadow-md transition-all group"
-                >
-                  <div
-                    className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: `${accent}15`, color: accent }}
-                  >
-                    <CheckCircleIcon size={16} style={{ color: accent }} />
-                  </div>
-                  <span className="text-sm text-slate-800 font-semibold leading-snug">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
-        </section>
-      )}
+        ))}
+      </div>
+
+    </div>
+  </section>
+)}
+       
 
       {/* ─── HOW WE DELIVER (FULL SECTION) ─── */}
-      {subDept.howWeDeliver && (
-        <section className="py-24 bg-slate-900 overflow-hidden relative">
-          <div
-            className="absolute inset-0 opacity-5"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 25% 50%, white 1px, transparent 1px)",
-              backgroundSize: "48px 48px",
-            }}
-          />
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-2xl mb-14">
-              <span
-                className="text-xs font-bold uppercase tracking-widest mb-3 block"
-                style={{ color: accent }}
-              >
-                Our Process
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">
-                How We Deliver {subDept.name}
-              </h2>
-              <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-                {subDept.howWeDeliver}
-              </p>
-            </div>
+       {subDept.howWeDeliver && (
+  <section className="py-24 bg-white overflow-hidden relative border-t border-slate-100">
+    <div
+      className="absolute inset-0 opacity-5"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle at 25% 50%, #0f172a 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+      }}
+    />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-2xl mb-14">
+        <span
+          className="text-xs font-bold uppercase tracking-widest mb-3 block"
+          style={{ color: accent }}
+        >
+          Our Process
+        </span>
+        <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">
+          How We Deliver {subDept.name}
+        </h2>
+        <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+          {subDept.howWeDeliver}
+        </p>
+      </div>
 
-            <div className="relative">
-              <div className="absolute left-[19px] sm:left-[23px] top-0 bottom-0 w-px bg-slate-700 hidden sm:block" />
-              <div className="space-y-8">
-                {[
-                  {
-                    step: "01",
-                    title: "Discovery & Scoping",
-                    dur: "Week 1–2",
-                    desc: "We map your current state, document constraints, agree on success metrics, and produce a delivery plan with your team before any execution begins.",
-                  },
-                  {
-                    step: "02",
-                    title: "Design & Blueprint",
-                    dur: "Week 2–3",
-                    desc: "A detailed implementation plan is produced and reviewed with stakeholders. Zero surprises — you know exactly what we are building before we build it.",
-                  },
-                  {
-                    step: "03",
-                    title: "Phased Execution",
-                    dur: "Week 3–6",
-                    desc: "Delivery happens in tested increments. Each phase is validated before the next begins, keeping quality high and risk low throughout.",
-                  },
-                  {
-                    step: "04",
-                    title: "Handover & Enablement",
-                    dur: "Week 6+",
-                    desc: "Full documentation, team training, and a hypercare period ensure your team can operate and extend everything we deliver independently.",
-                  },
-                ].map((phase, i) => (
-                  <div
-                    key={i}
-                    className="flex gap-6 sm:gap-10 items-start group/phase"
+      <div className="relative">
+        {/* Timeline connector line */}
+        <div className="absolute left-[19px] sm:left-[23px] top-0 bottom-0 w-px bg-slate-200 hidden sm:block" />
+        
+        <div className="space-y-8">
+          {[
+            {
+              step: "01",
+              title: "Discovery & Scoping",
+              dur: "Week 1–2",
+              desc: "We map your current state, document constraints, agree on success metrics, and produce a delivery plan with your team before any execution begins.",
+            },
+            {
+              step: "02",
+              title: "Design & Blueprint",
+              dur: "Week 2–3",
+              desc: "A detailed implementation plan is produced and reviewed with stakeholders. Zero surprises — you know exactly what we are building before we build it.",
+            },
+            {
+              step: "03",
+              title: "Phased Execution",
+              dur: "Week 3–6",
+              desc: "Delivery happens in tested increments. Each phase is validated before the next begins, keeping quality high and risk low throughout.",
+            },
+            {
+              step: "04",
+              title: "Handover & Enablement",
+              dur: "Week 6+",
+              desc: "Full documentation, team training, and a hypercare period ensure your team can operate and extend everything we deliver independently.",
+            },
+          ].map((phase, i) => (
+            <div
+              key={i}
+              className="flex gap-6 sm:gap-10 items-start group/phase"
+            >
+              <div
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0 relative z-10 border-2 transition-all"
+                style={{
+                  background: `${accent}15`,
+                  color: accent,
+                  borderColor: `${accent}30`,
+                }}
+              >
+                {phase.step}
+              </div>
+              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 flex-grow group-hover/phase:border-slate-200 group-hover/phase:bg-slate-50/80 transition-all shadow-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+                  <h3 className="text-slate-900 font-bold text-base sm:text-lg">
+                    {phase.title}
+                  </h3>
+                  <span
+                    className="inline-flex items-center text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md flex-shrink-0"
+                    style={{ background: `${accent}15`, color: accent }}
                   >
-                    <div
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0 relative z-10 border-2 transition-all"
-                      style={{
-                        background: `${accent}20`,
-                        color: accent,
-                        borderColor: `${accent}40`,
-                      }}
-                    >
-                      {phase.step}
-                    </div>
-                    <div className="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 flex-grow group-hover/phase:border-slate-600 transition-all">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-                        <h3 className="text-white font-bold text-base sm:text-lg">
-                          {phase.title}
-                        </h3>
-                        <span
-                          className="inline-flex items-center text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md flex-shrink-0"
-                          style={{ background: `${accent}15`, color: accent }}
-                        >
-                          {phase.dur}
-                        </span>
-                      </div>
-                      <p className="text-slate-400 text-sm leading-relaxed">
-                        {phase.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                    {phase.dur}
+                  </span>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  {phase.desc}
+                </p>
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
 
       {/* ─── PARTNERSHIP SECTION ─── */}
-      <section className="py-24 bg-white border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 space-y-6">
-              <div className="inline-flex px-3 py-1 bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold rounded-lg uppercase tracking-wide">
-                Partnership Philosophy
+   <section className="py-24 bg-white border-t border-slate-100">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      
+      {/* Left Column: Heading, Copy & Boxed Grid Items */}
+      <div className="lg:col-span-6 space-y-8">
+        <div className="space-y-4">
+          <div 
+            className="inline-flex px-3 py-1 text-xs font-bold rounded-lg uppercase tracking-wider border"
+            style={{ 
+              background: `${accent}08`, 
+              borderColor: `${accent}20`,
+              color: accent 
+            }}
+          >
+            Partnership Philosophy
+          </div>
+          
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-[1.15]">
+            Why Choose Improx Group
+          </h2>
+          
+          <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+            We are not a vendor handing over a static solution. We are an embedded partner 
+            invested in your scale, fully accountable for outcomes, and committed to leaving 
+            your execution teams stronger than we found them.
+          </p>
+        </div>
+        
+        {/* Box Type Format Grid */}
+        <div className="grid sm:grid-cols-2 gap-4">
+          {[
+            {
+              label: "Outcomes-first",
+              desc: "Measured purely by realized business impact, not activity or hours billed.",
+            },
+            {
+              label: "Deep specialization",
+              desc: "Domain experts deployed to your project, never high-level generalists.",
+            },
+            {
+              label: "Hands-on engagement",
+              desc: "We work actively alongside your team, removing silos entirely.",
+            },
+            {
+              label: "Transparent partnership",
+              desc: "Clear visual scoping, honest assessments, and zero hidden line-items.",
+            },
+          ].map((point, i) => (
+            <div 
+              key={i} 
+              className="p-5 bg-slate-50/50 border border-slate-100 rounded-2xl hover:bg-white hover:border-slate-200/80 hover:shadow-sm transition-all duration-300 group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[10px] font-black uppercase tracking-wider opacity-30" style={{ color: accent }}>
+                  0{i + 1}
+                </span>
+                <div
+                  className="w-1.5 h-1.5 rounded-full transition-transform duration-300 group-hover:scale-125"
+                  style={{ background: accent }}
+                />
               </div>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.15]">
-                Why Organizations Choose Improx Group
-              </h2>
-              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-                We are not a vendor handing over a solution. We are a partner
-                invested in your success, accountable for outcomes, and
-                committed to leaving you stronger after we leave.
-              </p>
-              <ul className="space-y-4">
-                {[
-                  {
-                    label: "Outcomes-first",
-                    desc: "Measured by business impact, not activity or hours billed.",
-                  },
-                  {
-                    label: "Deep specialization",
-                    desc: "Domain experts, not generalists deployed across any engagement.",
-                  },
-                  {
-                    label: "Hands-on engagement",
-                    desc: "We work alongside your team, not in isolation from them.",
-                  },
-                  {
-                    label: "Transparent partnership",
-                    desc: "Clear scope, honest assessments, and no hidden fees.",
-                  },
-                ].map((point, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div
-                      className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
-                      style={{ background: `${accent}15` }}
-                    >
-                      <div
-                        className="w-1.5 h-1.5 rounded-full"
-                        style={{ background: accent }}
-                      />
-                    </div>
-                    <div>
-                      <div className="font-bold text-slate-900 text-sm">
-                        {point.label}
-                      </div>
-                      <div className="text-slate-600 text-xs leading-relaxed">
-                        {point.desc}
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <div className="space-y-1">
+                <h4 className="font-bold text-slate-900 text-sm tracking-tight">
+                  {point.label}
+                </h4>
+                <p className="text-slate-500 text-xs leading-relaxed">
+                  {point.desc}
+                </p>
+              </div>
             </div>
-            <div className="lg:col-span-7 relative rounded-2xl overflow-hidden min-h-[500px]">
-              <img
-                src={images[1] || images[0]}
-                alt="Partnership"
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="lazy"
-              />
+          ))}
+        </div>
+      </div>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/20 to-transparent" />
+      {/* Right Column: Premium Media Frame */}
+      <div className="lg:col-span-6 relative rounded-3xl overflow-hidden min-h-[440px] lg:h-[540px] aspect-[4/3] lg:aspect-auto shadow-sm border border-slate-100 group lg:sticky lg:top-8">
+        <img
+          src={images[1] || images[0]}
+          alt="Improx Group Partnership Focus"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          loading="lazy"
+        />
 
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5">
-                  <p className="text-white font-bold text-base mb-1">
-                    {subDept.name}
-                  </p>
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    {dept.tagline}
-                  </p>
-                </div>
+        {/* Dynamic Vignette Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-slate-950/10 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/40 via-transparent to-transparent" />
+
+        {/* Floating Glassmorphic Footer Widget */}
+        <div className="absolute bottom-6 left-6 right-6 transform transition-all duration-300 group-hover:translate-y-[-2px]">
+          <div className="bg-slate-950/40 backdrop-blur-xl border border-white/15 rounded-2xl p-6 shadow-2xl">
+            <div className="flex items-center justify-between gap-4">
+              <div className="space-y-1">
+                <p className="text-white font-black text-base sm:text-lg tracking-tight">
+                  {subDept.name}
+                </p>
+                <p className="text-white/70 text-xs font-medium leading-relaxed max-w-md">
+                  {dept.tagline}
+                </p>
               </div>
+              <div 
+                className="w-2.5 h-2.5 rounded-full animate-pulse flex-shrink-0"
+                style={{ background: accent }}
+              />
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
+    </div>
+  </div>
+</section>
       {/* ─── RELATED SUB-DEPARTMENTS ─── */}
-      {dept.subDepartments.filter((s) => s.slug !== subSlug).length > 0 && (
-        <section className="py-20 bg-slate-50/30 border-t border-slate-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-10">
-              <p className="text-slate-400 font-semibold uppercase tracking-widest text-xs mb-2">
-                Related Services
-              </p>
-              <h2 className="text-2xl font-black text-slate-900">
-                More in {dept.name}
-              </h2>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {dept.subDepartments
-                .filter((s) => s.slug !== subSlug)
-                .slice(0, 3)
-                .map((related, i) => (
-                  <Link
-                    key={i}
-                    to={`/departments/${dept.slug}/${related.slug}`}
-                    className="group flex items-start gap-4 p-5 border border-slate-200/60 rounded-2xl bg-white hover:border-slate-300 hover:shadow-md transition-all"
-                  >
-                    {/* <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
-                      style={{ background: `${accent}10` }}
-                    >
-                      {dept.icon || '💼'}
-                    </div> */}
-                    <div className="flex-grow min-w-0">
-                      <h3 className="font-bold text-slate-900 text-sm mb-1 group-hover:text-slate-700 transition-colors">
-                        {related.name}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">
-                        {related.desc
-                          ? related.desc.split(".")[0] + "."
-                          : `Specialized ${related.name} services under ${dept.name}.`}
-                      </p>
-                    </div>
-                    <ArrowRightIcon
-                      size={14}
-                      className="text-slate-400 group-hover:text-slate-700 flex-shrink-0 mt-1 transition-colors"
-                    />
-                  </Link>
-                ))}
-            </div>
-          </div>
-        </section>
-      )}
+      
     </div>
   );
 }

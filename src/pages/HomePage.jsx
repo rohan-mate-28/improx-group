@@ -254,24 +254,27 @@ export default function HomePage() {
       </section>
 
       {/* ─── STATS ─── */}
-      <section className="section-pad bg-gradient-to-r from-primary-50 to-blue-50" ref={statsRef}>
-        <div className="container-max">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, i) => (
-              <div
-                key={i}
-                className={`text-center transition-all duration-700 ${statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                style={{ transitionDelay: `${i * 150}ms` }}
-              >
-                <div className="text-4xl lg:text-5xl font-black gradient-text mb-2">
-                  {statsVisible ? <AnimatedCounter target={stat.value} /> : '0'}
-                </div>
-                <p className="text-slate-600 text-sm font-medium">{stat.label}</p>
-              </div>
-            ))}
+     <section className="py-8 md:py-16 bg-gradient-to-r from-primary-50 to-blue-50" ref={statsRef}>
+  <div className="container-max px-4"> 
+    {/* Reduced gap from gap-8 to gap-4 on mobile */}
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+      {stats.map((stat, i) => (
+        <div
+          key={i}
+          className={`text-center transition-all duration-700 ${statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          style={{ transitionDelay: `${i * 150}ms` }}
+        >
+          {/* Scaled down text: text-2.5xl on mobile, scaling up to text-5xl */}
+          <div className="text-2xl sm:text-3xl lg:text-5xl font-black gradient-text mb-1 md:mb-2">
+            {statsVisible ? <AnimatedCounter target={stat.value} /> : '0'}
           </div>
+          {/* Made label text slightly smaller on mobile */}
+          <p className="text-slate-600 text-xs sm:text-sm font-medium leading-tight">{stat.label}</p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* ─── ABOUT ─── */}
       <section className="section-pad bg-white">
@@ -323,18 +326,30 @@ export default function HomePage() {
                     onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0" />
-                  <div className={`absolute bottom-3 left-3 w-11 h-11 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-xl shadow-lg group-hover:scale-110 transition-transform duration-300 text-white`}>
-                    {dept.icon}
-                  </div>
+                  
                 </div>
 
-                <div className="p-6">
-                  <h3 className="text-slate-900 font-bold text-lg mb-2 group-hover:text-primary-600 transition-colors">{dept.name}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">{dept.tagline}</p>
-                  <div className="mt-4 flex items-center gap-2 text-primary-600 text-sm font-semibold opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
-                    Explore <ArrowRightIcon size={14} />
-                  </div>
-                </div>
+                <div className="p-6 flex flex-col min-h-[180px]">
+  <div>
+    <h3 className="text-slate-900 font-bold text-lg mb-2 group-hover:text-primary-600 transition-colors">
+      {dept.name}
+    </h3>
+
+    <p className="text-slate-500 text-sm leading-relaxed line-clamp-3">
+      {dept.tagline}
+    </p>
+  </div>
+
+  <div className="mt-auto pt-6">
+    <div className="inline-flex items-center gap-2 text-primary-600 text-sm font-semibold">
+      Explore
+      <ArrowRightIcon
+        size={14}
+        className="group-hover:translate-x-1 transition-transform duration-300"
+      />
+    </div>
+  </div>
+</div>
               </Link>
             ))}
           </div>
@@ -342,71 +357,71 @@ export default function HomePage() {
       </section>
 
       {/* ─── INDUSTRIES WE SERVE ─── */}
-      <section className="py-20 lg:py-28 bg-slate-900 text-slate-100 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-slate-800">
-            <div className="max-w-2xl">
-              <p className="text-blue-400 font-semibold uppercase tracking-widest text-xs mb-3">Market Architecture</p>
-              <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight">Industries We Serve</h2>
-            </div>
-            <p className="mt-4 md:mt-0 text-slate-400 max-w-sm text-sm sm:text-base leading-relaxed">
-              Deploying domain expertise and highly scalable technical frameworks across vertical markets.
-            </p>
+   <section className="py-20 lg:py-28 bg-slate-50 text-slate-800 overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-slate-200">
+      <div className="max-w-2xl">
+        <p className="text-blue-600 font-semibold uppercase tracking-widest text-xs mb-3">Market Architecture</p>
+        <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Industries We Serve</h2>
+      </div>
+      <p className="mt-4 md:mt-0 text-slate-600 max-w-sm text-sm sm:text-base leading-relaxed">
+        Deploying domain expertise and highly scalable technical frameworks across vertical markets.
+      </p>
+    </div>
+
+    <div className="grid lg:grid-cols-12 gap-8 items-start">
+      <div className="lg:col-span-4 grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-col gap-2 max-h-[550px] overflow-y-auto pr-2 custom-scrollbar">
+        {industries.map((item, idx) => {
+          const isSelected = activeIndex === idx;
+          return (
+            <button
+              key={idx}
+              onClick={() => setActiveIndex(idx)}
+              onMouseEnter={() => setActiveIndex(idx)}
+              className={`flex items-center justify-between px-5 py-4 rounded-lg text-left transition-all duration-200 border w-full group ${
+                isSelected
+                  ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-600/10 translate-x-1'
+                  : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 hover:border-slate-300'
+              }`}
+            >
+              <span className="text-sm font-bold tracking-wide truncate">{item.name}</span>
+              <span className={`text-xs font-mono transition-opacity duration-200 ${isSelected ? 'opacity-60 text-white' : 'opacity-0 group-hover:opacity-40 text-slate-500'}`}>
+                // {(idx + 1).toString().padStart(2, '0')}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="lg:col-span-8 bg-gradient-to-br from-white to-slate-50 border border-slate-200 rounded-xl p-8 lg:p-12 min-h-[520px] flex flex-col justify-between relative shadow-sm backdrop-blur-sm">
+        <div className="relative z-10">
+          <div className="mb-8">
+            <span className="text-xs font-mono text-blue-600 uppercase tracking-widest block mb-1">
+              Sector Profile No. {((activeIndex + 1).toString().padStart(2, '0'))}
+            </span>
+            <h3 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">{activeIndustry?.name}</h3>
+            <p className="text-blue-600 font-medium text-sm sm:text-base mt-1.5">{activeIndustry?.tagline}</p>
           </div>
+          <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-10 font-normal text-justify">
+            {activeIndustry?.info}
+          </p>
+        </div>
 
-          <div className="grid lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-4 grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-col gap-2 max-h-[550px] overflow-y-auto pr-2 custom-scrollbar">
-              {industries.map((item, idx) => {
-                const isSelected = activeIndex === idx;
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveIndex(idx)}
-                    onMouseEnter={() => setActiveIndex(idx)}
-                    className={`flex items-center justify-between px-5 py-4 rounded-lg text-left transition-all duration-200 border w-full group ${
-                      isSelected
-                        ? 'bg-blue-600 border-blue-500 text-white shadow-lg shadow-blue-600/10 translate-x-1'
-                        : 'bg-slate-800/40 border-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800 hover:border-slate-700'
-                    }`}
-                  >
-                    <span className="text-sm font-bold tracking-wide truncate">{item.name}</span>
-                    <span className={`text-xs font-mono transition-opacity duration-200 ${isSelected ? 'opacity-60 text-white' : 'opacity-0 group-hover:opacity-40 text-slate-400'}`}>
-                      // {(idx + 1).toString().padStart(2, '0')}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="lg:col-span-8 bg-gradient-to-br from-slate-800/60 to-slate-900/40 border border-slate-800 rounded-xl p-8 lg:p-12 min-h-[520px] flex flex-col justify-between relative shadow-xl backdrop-blur-sm">
-              <div className="relative z-10">
-                <div className="mb-8">
-                  <span className="text-xs font-mono text-blue-500/80 uppercase tracking-widest block mb-1">
-                    Sector Profile No. {((activeIndex + 1).toString().padStart(2, '0'))}
-                  </span>
-                  <h3 className="text-3xl lg:text-4xl font-black text-white tracking-tight">{activeIndustry?.name}</h3>
-                  <p className="text-blue-400 font-medium text-sm sm:text-base mt-1.5">{activeIndustry?.tagline}</p>
-                </div>
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-10 font-normal text-justify">
-                  {activeIndustry?.info}
-                </p>
+        <div className="relative z-10 pt-8 border-t border-slate-200">
+          <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Core Structural Focus Areas</h4>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {activeIndustry?.focus.map((feature, fIdx) => (
+              <div key={fIdx} className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 bg-white px-4 py-3 rounded-lg border border-slate-200">
+                <span className="w-1 h-1 rounded-full bg-blue-600 shrink-0" />
+                <span className="font-semibold tracking-wide text-slate-800">{feature}</span>
               </div>
-
-              <div className="relative z-10 pt-8 border-t border-slate-800/80">
-                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Core Structural Focus Areas</h4>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {activeIndustry?.focus.map((feature, fIdx) => (
-                    <div key={fIdx} className="flex items-center gap-3 text-xs sm:text-sm text-slate-300 bg-slate-900/40 px-4 py-3 rounded-lg border border-slate-800/60">
-                      <span className="w-1 h-1 rounded-full bg-blue-500 shrink-0" />
-                      <span className="font-semibold tracking-wide text-slate-200">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ─── FUTURE READY SOLUTIONS ─── */}
       <section className="section-pad">
@@ -510,9 +525,7 @@ export default function HomePage() {
                   className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
                   loading="lazy"
                 />
-                <div className={`absolute top-4 left-4 w-10 h-10 rounded-xl bg-gradient-to-br ${dept.color} flex items-center justify-center text-white shadow-md`}>
-                  {dept.icon}
-                </div>
+                
               </div>
               
               {/* Content Panel */}

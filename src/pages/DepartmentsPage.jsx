@@ -132,13 +132,9 @@ export default function DepartmentsPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
                     
-                    <div className={`absolute bottom-4 left-4 w-14 h-14 rounded-2xl bg-gradient-to-br ${dept.color || 'from-primary-500 to-primary-600'} flex items-center justify-center text-3xl shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
-                      {dept.icon}
-                    </div>
+                  
 
-                    <span className="absolute top-4 right-4 bg-white/95 backdrop-blur text-primary-700 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm border border-slate-100">
-                      {dept.subDepartments?.length || 0} specializations
-                    </span>
+                  
                   </div>
 
                   <div className="p-6 sm:p-8 space-y-3">
